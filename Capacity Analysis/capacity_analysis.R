@@ -44,9 +44,9 @@ ggplot(tot_renews, aes(x = year, y = tot_cap,
                        fill = `Fuel Source`)) +
   geom_area(position='stack',alpha=0.5) + 
   ggtitle("U.S. Renewable Energy Capacity (MW), 1990-2018") +
-  scale_x_discrete('Year', seq(from=min(tot_renews$year),
-                               to=max(tot_renews$year), 
-                               by=5)) +
+  # scale_x_discrete('Year', seq(from=min(tot_renews$year),
+                               # to=max(tot_renews$year), 
+                               # by=5)) +
   scale_y_continuous('Total Cacity (MW)') +
   theme(panel.grid = element_blank(),
         plot.title = element_text(hjust = 0.5),
@@ -149,7 +149,7 @@ gg <- ggplot(renew_cap_region,
 ggsave(gg,file='~/Dropbox (Princeton)/Figures/tot_renew_by_region.png',width=10,height=7)
 
 ### do it by technology
-temp <- na.omit(raw_renewables_cap %>% full_join(regions, by='state'))
+temp <- na.omit(raw_renewables_cap %>% full_join(regions, by='state')) %>%filter(year >=2005)
 temp <- temp %>% group_by(region, year,`Fuel Source`) %>% summarise(tot_cap = sum(total_capacity))
 ggplot(temp, aes(x=year, y=tot_cap,fill=region,color=region)) +
   geom_area(position='stack',alpha=0.7) +
@@ -167,7 +167,6 @@ ggplot(solar_cap_all_states, aes(x=year)) +
   geom_bar(stat="identity", aes(y = diff)) +
   geom_line(aes(y = tot_renew_cap))
   
-
 
 ann_renew_cap_all_states <- raw_renewables_cap %>% group_by(year) %>% summarise(tot_renew_cap = sum(total_capacity)) 
 ann_cap_all_states <- total_raw_cap %>% group_by(year) %>% summarise(tot_renew_cap = sum(total_capacity)) 
