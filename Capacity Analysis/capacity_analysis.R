@@ -2,6 +2,7 @@ library(ggplot2)
 library(tidyverse)
 library(dplyr)
 library(gridExtra)
+library(ggpubr)
 
 ##############################################
 ## Import Annual Capacity Data by State
@@ -26,27 +27,32 @@ raw_cap_data$state <- raw_cap_data$`State Code`
 total_raw_cap <- raw_cap_data %>% filter(`Producer Type` == "Total Electric Power Industry")
 
 ##############################################
-## Plot total renewable Capacity by year
+## Plot total renewable capacity (stock) by year
 ##############################################
 
 ## Ignoring nuclear for now
 renew_list <- c("Hydroelectric", "Other Biomass", "Wind", "Solar Thermal and Photovoltaic",
                 "Geothermal", "Pumped Storage", "Wood and Wood Derived Fuels")
 
-raw_renewables_cap <- total_raw_cap %>% filter(`Fuel Source` %in% renew_list) 
+total_raw_cap <- total_raw_cap %>% mutate(renew = ifelse(`Fuel Source` %in% renew_list,1,0))
  
-tot_renews <- raw_renewables_cap %>% group_by(`Fuel Source`, year) %>%
+denom <- total_raw_cap %>% filter(`Fuel Source`=="All Sources") %>% group_by(year) %>% 
+  summarise(all_sources_tot_cap = sum(total_capacity))
+
+tot_renews <- total_raw_cap %>% filter(renew==1) %>% group_by(`Fuel Source`, year) %>%
   summarise(tot_cap = sum(total_capacity)) 
 
+pRenew <- tot_renews %>% group_by(year) %>% 
+  summarise(renew_tot_cap = sum(tot_cap)) %>%
+  right_join(denom, by='year') %>%
+  mutate(p_renew = (renew_tot_cap/all_sources_tot_cap) * 100)
+  
 ggplot(tot_renews, aes(x = year, y = tot_cap, 
                        group =`Fuel Source`,
                        color=`Fuel Source`, 
                        fill = `Fuel Source`)) +
   geom_area(position='stack',alpha=0.5) + 
   ggtitle("U.S. Renewable Energy Capacity (MW), 1990-2018") +
-  # scale_x_discrete('Year', seq(from=min(tot_renews$year),
-                               # to=max(tot_renews$year), 
-                               # by=5)) +
   scale_y_continuous('Total Cacity (MW)') +
   theme(panel.grid = element_blank(),
         plot.title = element_text(hjust = 0.5),
@@ -56,6 +62,117 @@ ggplot(tot_renews, aes(x = year, y = tot_cap,
         legend.key = element_blank())
 
 ggsave(file='~/Dropbox (Princeton)/Figures/total_renewable_capacity.png',width=10,height=7)
+
+##############################################
+## Plot percent renewable capacity by year
+##############################################
+
+tot_renews <- tot_renews %>% right_join(pRenew, by=c('year'))
+
+ggplot(tot_renews, aes(x = year, y = tot_cap, 
+                       group =`Fuel Source`,
+                       color=`Fuel Source`, 
+                       fill = `Fuel Source`)) +
+  geom_area(position='stack',alpha=0.5) + 
+  geom_line(aes(y=p_renew*10e3),color="black") +
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "Total Nameplate Capacity (MW)",
+    
+    # Add a second axis for % capacity
+    sec.axis = sec_axis(~.*10e-7, name="% renewable capacity")
+  )
+
+ggsave(file='~/Dropbox (Princeton)/Figures/tot_renew_cap.png',width=10,height=7)
+
+###########################################################################
+## Compare percent of added capacity that is renewable by year vs all sources
+## This looks really good so I'm going to do by technology
+##########################################################################
+
+pRenew <- pRenew %>% mutate(diff_year = year - lag(year),  # Difference in time (just in case there are gaps)
+         diff_tot = all_sources_tot_cap - lag(all_sources_tot_cap), # Difference in route between years
+         diff_renew = renew_tot_cap - lag(renew_tot_cap),
+         p_tot_change = (diff_tot / diff_year)/all_sources_tot_cap * 100,
+         p_renew_change = (diff_renew / diff_year)/renew_tot_cap * 100)
+
+
+growth_rates <- pRenew %>% select(year, p_tot_change, p_renew_change) %>% 
+  filter(!is.na(p_tot_change)) %>% 
+  gather(key="series", value = "growth", c(p_tot_change, p_renew_change))
+
+raw_changes <- pRenew %>% select(year, diff_tot, diff_renew) %>% 
+  filter(!is.na(diff_tot)) %>% 
+  gather(key="series", value = "raw_change", c(diff_tot, diff_renew))
+
+pChange <- ggplot(growth_rates, aes(x=year, y = growth, color=series)) + geom_line() +
+  theme(legend.position = "none") + xlab("Year") + ylab("% Capacity Growth") +
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") 
+
+rawChange <- ggplot(raw_changes, aes(x=year, y = raw_change, color=series)) + 
+  geom_line() +
+  scale_color_discrete(labels=c("Renewables","All Sources")) + 
+  xlab("Year") + ylab("Annual Capacity Change (MW)")+ 
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+ggarrange(pChange, rawChange,
+         labels = c("Growth Rates", "Raw Changes"),
+         ncol = 1, nrow = 2) 
+
+ggsave(file='~/Dropbox (Princeton)/Figures/relative_growth_renew_tot.png',width=10,height=7)
+
+### Growth rate by technology
+
+omit_list <- c("", "All Sources", "Other", "Other Gases")
+
+growth_rates <- total_raw_cap %>% group_by(year, `Fuel Source`) %>%
+  summarise(tot_cap = sum(total_capacity))  %>% 
+  group_by(`Fuel Source`) %>% arrange(`Fuel Source`) %>% 
+  mutate(diff_year = year -lag(year),
+         diff_cap = tot_cap - lag(tot_cap),
+         growth_rate = (diff_cap / diff_year)/tot_cap * 100) %>%
+  filter(year >= 2004) %>% 
+  filter(!(`Fuel Source` %in% omit_list))
+
+growth_rates$renew <- ifelse(growth_rates$`Fuel Source` %in% renew_list, 1, 0)
+growth_rates$renew <- factor(growth_rates$renew, levels = c(0,1), labels= c("Non-renewable fuel sources", "Renewable fuel sources"))
+
+ggplot(growth_rates, aes(x=year,y=growth_rate,color=`Fuel Source`)) + 
+  geom_line() +
+  facet_wrap(~renew, nrow=2,scale="free_y") +
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
+  ylab("% Annual Capacity Growth")+
+  theme(legend.position="bottom",
+        legend.title=element_blank()) 
+
+ggsave(filename = '~/Dropbox (Princeton)/Figures/growth_rates.png',width=10,height=7)
+
+
+ggplot(growth_rates, aes(x=year,y=diff_cap,color=`Fuel Source`)) + 
+  geom_line() + 
+  facet_wrap(~renew, nrow=2,scale="free_y") +
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
+  ylab("Annual Capacity Additions (MW)")+
+  theme(legend.position="bottom",
+        legend.title=element_blank()) 
+
+ggsave(filename = '~/Dropbox (Princeton)/Figures/yearly_changes.png',width=10,height=7)
+
 
 ############################################################################################
 ## Plot total renewable Capacity by year by technology after 2005 (ITC starts in 2006)
@@ -101,12 +218,11 @@ ggplot(after_2005, aes(x = year, y = Diff_growth,
 ggsave(file='~/Dropbox (Princeton)/Figures/after_2005_additions.png',width=10,height=7)
 
 
-## TODO: Look at placed in service vs in construction requirements (i.e. use proposed generation data)
 
+############################################################################################
+## Do same stuff by region -- make above into a function that I can feed in region
+########################################################################################## 
 
-## TODO: Look at capacity additions by state, region, regulated vs not
-
-## # # # #  state is too hard so do regions
 tot_renews_by_state <- raw_renewables_cap %>% group_by(state, year) %>%
   summarise(tot_state_cap = sum(total_capacity))%>% filter(year>= 2005)
 
@@ -156,38 +272,28 @@ ggplot(temp, aes(x=year, y=tot_cap,fill=region,color=region)) +
   facet_wrap(~`Fuel Source`,scale='free') 
 ggsave(file='~/Dropbox (Princeton)/Figures/tot_renew_by_region_tech.png',width=10,height=7)
 
+
 ##############################################
-## Identify Solar Capacity
-##############################################
-solar_cap_all_states <- raw_renewables_cap %>% filter(`Fuel Source` == "Solar Thermal and Photovoltaic") %>%
-                        group_by(year) %>% summarise(tot_renew_cap = sum(total_capacity)) 
-solar_cap_all_states$diff <- solar_cap_all_states$tot_renew_cap - lag(solar_cap_all_states$tot_renew_cap)
-
-ggplot(solar_cap_all_states, aes(x=year)) + 
-  geom_bar(stat="identity", aes(y = diff)) +
-  geom_line(aes(y = tot_renew_cap))
-  
-
-ann_renew_cap_all_states <- raw_renewables_cap %>% group_by(year) %>% summarise(tot_renew_cap = sum(total_capacity)) 
-ann_cap_all_states <- total_raw_cap %>% group_by(year) %>% summarise(tot_renew_cap = sum(total_capacity)) 
-
-#############################################
-## Truncate to 2004
+## Make regulated vs not regulated variable
 ##############################################
 
-solar_trunc <- solar_cap_all_states %>% filter(year >= 2004)
+retailChoice <- c("CA","CT","DC","DE",
+                  "IL","MA","MD","ME","MI",
+                  "MT","NH","NJ","NY","OH",
+                  "PA","RI","TX")
 
-cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+tot_renews_by_state$retailChoice <- ifelse((tot_renews_by_state$state %in% retailChoice), 1, 0)
+by_reg <- tot_renews_by_state %>% group_by(retailChoice, year) %>% summarise(tot_renew_cap = sum(tot_state_cap))
+ggplot(by_reg, aes(x=year, y=tot_renew_cap,fill=retailChoice,color=retailChoice)) + 
+  geom_point()
 
-ggplot(solar_trunc, aes(x=year)) + 
-  geom_bar(stat="identity", aes(y = diff)) +
-  geom_line(aes(y = tot_renew_cap)) +
-  labs(x="Year", y ="Installed Capacity (MW)", title="U.S. Solar Capacity (2004-2018)") + 
-  theme(plot.title=element_text(hjust=0.5)) +
-  scale_x_continuous("Year", breaks = x_axis_breaks) +
-  scale_fill_manual(values=cbbPalette) + 
-  scale_colour_manual(values=cbbPalette)
+#### need to standardize somehow
 
-View(solar_trunc)
+
+
+## TODO: Look at placed in service vs in construction requirements (i.e. use proposed generation data)
+
+
+## TODO: Look at capacity additions by state, region, regulated vs not
 
 

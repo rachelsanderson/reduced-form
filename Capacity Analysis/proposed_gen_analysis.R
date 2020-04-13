@@ -23,6 +23,16 @@ status_labels <- c("Cancelled", "Permits Pending",
                    "Permitted", "Completed, not operating",
                    "Under construction", "Almost complete")
 
+########## Need to figure out which are duplicates
+
+## missing current schedule year only for < 2008
+proposed_gen %>% filter(is.na(proposed_gen$curr_scheduled_year)) %>% group_by(year) %>% tally()
+
+
+
+proposed_gen %>% group_by(year) %>% tally()
+pRenew
+
 ########## ID Renewables in the list
 ########## Note: There are different ways to classify "renewables"
 ##########       This first attempt uses the "energy source" variable 
@@ -33,6 +43,7 @@ proposed_gen$pm <- factor(unlist(map(strsplit(as.character(proposed_gen$energy_s
                                      .default=NaN)))
 
 proposed_gen <- proposed_gen %>% mutate(renew = (pm %in% renew_sources))
+
 
 ########## Look at overall number of proposed generators over time...
 not_cancelled <- proposed_gen %>% filter(status != 'IP')
@@ -49,9 +60,11 @@ ggplot(not_cancelled, aes(x=year)) +
   ggtitle('Number of proposed generators by year') +
   theme(plot.title=element_text(hjust=0.5))
 
-cap_by_yr <- not_cancelled %>% group_by(year) %>% summarise(tot_cap = sum(nameplate_cap))
+cap_by_yr <- not_cancelled %>% group_by(year, renew) %>% summarise(tot_cap = sum(nameplate_cap))
 
-ggplot(cap_by_yr, aes(x=year, y=tot_cap)) + geom_line()
+ggplot(cap_by_yr, aes(x=year, y=tot_cap, color=renew, fill=renew)) + 
+  geom_line() +
+  ggtitle("Annual proposed generator entries")
 
 ggplot(not_cancelled, aes(x=nameplate_cap, color=renew, fill=renew)) + 
   geom_histogram() +
@@ -67,6 +80,12 @@ ggplot(not_cancelled, aes(x=nameplate_cap, color=renew, fill=renew)) +
   xlab('Nameplate Capacity (MW)') + 
   ggtitle('Size of proposed capacity additions') + 
   theme(plot.title=element_text(hjust=0.5))
+
+num_util <- not_cancelled %>% group_by(year) %>% 
+  summarise(nutil = length(unique(utility_name)))
+
+## number of unique utility names
+ggplot(num_util, aes(x=year, y=nutil)) + geom_line()
 
 
 ## NEED TO WEIGHT BY SIZE (look at capacity proposed by year)

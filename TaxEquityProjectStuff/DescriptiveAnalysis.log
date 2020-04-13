@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  11 APR 2020 16:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  12 APR 2020 22:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -190,77 +190,107 @@ l.88 \end[
 l.88 \end[itemize}
                   
 ? 
-<../Figures/total_renewable_capacity.png, id=12, 3011.25pt x 2107.875pt>
-File: ../Figures/total_renewable_capacity.png Graphic file (type png)
-<use ../Figures/total_renewable_capacity.png>
-Package pdftex.def Info: ../Figures/total_renewable_capacity.png  used on input
- line 130.
-(pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
+<../../Figures/relative_growth_renew_tot.png, id=12, 3011.25pt x 2107.875pt>
+File: ../../Figures/relative_growth_renew_tot.png Graphic file (type png)
+<use ../../Figures/relative_growth_renew_tot.png>
+Package pdftex.def Info: ../../Figures/relative_growth_renew_tot.png  used on i
+nput line 133.
+(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--135
+
+ []
+
 [2]
-<../Figures/after_2005_stock.png, id=17, 3011.25pt x 2107.875pt>
-File: ../Figures/after_2005_stock.png Graphic file (type png)
-<use ../Figures/after_2005_stock.png>
-Package pdftex.def Info: ../Figures/after_2005_stock.png  used on input line 13
-2.
+<../../Figures/growth_rates.png, id=17, 3011.25pt x 2107.875pt>
+File: ../../Figures/growth_rates.png Graphic file (type png)
+<use ../../Figures/growth_rates.png>
+Package pdftex.def Info: ../../Figures/growth_rates.png  used on input line 144
+.
+(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+ [3 <../../Figures/relative_growth_renew_tot.png>]
+<../../Figures/yearly_changes.png, id=22, 3011.25pt x 2107.875pt>
+File: ../../Figures/yearly_changes.png Graphic file (type png)
+<use ../../Figures/yearly_changes.png>
+Package pdftex.def Info: ../../Figures/yearly_changes.png  used on input line 1
+46.
+(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+<../../Figures/tot_renew_cap.png, id=23, 3011.25pt x 2107.875pt>
+File: ../../Figures/tot_renew_cap.png Graphic file (type png)
+<use ../../Figures/tot_renew_cap.png>
+Package pdftex.def Info: ../../Figures/tot_renew_cap.png  used on input line 14
+9.
 (pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 132--133
+Overfull \hbox (17.0pt too wide) in paragraph at lines 149--150
 [][] 
  []
 
-[3 <../Figures/total_renewable_capacity.png>]
-<../Figures/after_2005_additions.png, id=22, 3011.25pt x 2107.875pt>
-File: ../Figures/after_2005_additions.png Graphic file (type png)
-<use ../Figures/after_2005_additions.png>
-Package pdftex.def Info: ../Figures/after_2005_additions.png  used on input lin
-e 134.
+[4 <../../Figures/growth_rates.png> <../../Figures/yearly_changes.png>]
+<../../Figures/after_2005_stock.png, id=29, 3011.25pt x 2107.875pt>
+File: ../../Figures/after_2005_stock.png Graphic file (type png)
+<use ../../Figures/after_2005_stock.png>
+Package pdftex.def Info: ../../Figures/after_2005_stock.png  used on input line
+ 154.
 (pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 134--135
+Overfull \hbox (17.0pt too wide) in paragraph at lines 154--155
 [][] 
  []
 
-[4 <../Figures/after_2005_stock.png>]
-<../Figures/tot_renew_by_region.png, id=27, 3011.25pt x 2107.875pt>
-File: ../Figures/tot_renew_by_region.png Graphic file (type png)
-<use ../Figures/tot_renew_by_region.png>
-Package pdftex.def Info: ../Figures/tot_renew_by_region.png  used on input line
- 138.
-(pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
- [5 <../Figures/after_2005_additions.png>]
-<../Figures/tot_renew_by_region_tech.png, id=32, 3011.25pt x 2107.875pt>
-File: ../Figures/tot_renew_by_region_tech.png Graphic file (type png)
-<use ../Figures/tot_renew_by_region_tech.png>
-Package pdftex.def Info: ../Figures/tot_renew_by_region_tech.png  used on input
- line 140.
+[5 <../../Figures/tot_renew_cap.png>]
+<../../Figures/after_2005_additions.png, id=34, 3011.25pt x 2107.875pt>
+File: ../../Figures/after_2005_additions.png Graphic file (type png)
+<use ../../Figures/after_2005_additions.png>
+Package pdftex.def Info: ../../Figures/after_2005_additions.png  used on input 
+line 156.
 (pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 140--141
+Overfull \hbox (17.0pt too wide) in paragraph at lines 156--157
 [][] 
  []
 
-[6 <../Figures/tot_renew_by_region.png>] [7 <../Figures/tot_renew_by_region_tec
-h.png>] (./DescriptiveAnalysis.aux) ) 
+[6 <../../Figures/after_2005_stock.png>]
+<../../Figures/tot_renew_by_region.png, id=39, 3011.25pt x 2107.875pt>
+File: ../../Figures/tot_renew_by_region.png Graphic file (type png)
+<use ../../Figures/tot_renew_by_region.png>
+Package pdftex.def Info: ../../Figures/tot_renew_by_region.png  used on input l
+ine 160.
+(pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
+ [7 <../../Figures/after_2005_additions.png>]
+<../../Figures/tot_renew_by_region_tech.png, id=45, 3011.25pt x 2107.875pt>
+File: ../../Figures/tot_renew_by_region_tech.png Graphic file (type png)
+<use ../../Figures/tot_renew_by_region_tech.png>
+Package pdftex.def Info: ../../Figures/tot_renew_by_region_tech.png  used on in
+put line 162.
+(pdftex.def)             Requested size: 578.16002pt x 404.71384pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 162--163
+[][] 
+ []
+
+[8 <../../Figures/tot_renew_by_region.png>] [9 <../../Figures/tot_renew_by_regi
+on_tech.png>] (./DescriptiveAnalysis.aux) ) 
 Here is how much of TeX's memory you used:
- 2208 strings out of 480608
- 31143 string characters out of 5903631
+ 2227 strings out of 480608
+ 31815 string characters out of 5903631
  272110 words of memory out of 5000000
- 18101 multiletter control sequences out of 15000+600000
- 538836 words of font info for 48 fonts, out of 8000000 for 9000
+ 18117 multiletter control sequences out of 15000+600000
+ 539143 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,6n,34p,258b,229s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/
-enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
-lic/cm-super/sfrm1095.pfb>
-Output written on DescriptiveAnalysis.pdf (7 pages, 1541001 bytes).
+{/usr/local/texlive/2020/texmf-dist/
+fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2020/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/typ
+e1/public/cm-super/sfrm1095.pfb>
+Output written on DescriptiveAnalysis.pdf (9 pages, 2500326 bytes).
 PDF statistics:
- 64 PDF objects out of 1000 (max. 8388607)
- 38 compressed objects within 1 object stream
+ 76 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
