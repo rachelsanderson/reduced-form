@@ -60,11 +60,15 @@ ggplot(not_cancelled, aes(x=year)) +
   ggtitle('Number of proposed generators by year') +
   theme(plot.title=element_text(hjust=0.5))
 
+ggsave('Dropbox (Princeton)/Figures/num_proposed_gen.png', width=9, height=6)
+
 cap_by_yr <- not_cancelled %>% group_by(year, renew) %>% summarise(tot_cap = sum(nameplate_cap))
 
 ggplot(cap_by_yr, aes(x=year, y=tot_cap, color=renew, fill=renew)) + 
   geom_line() +
-  ggtitle("Annual proposed generator entries")
+  ggtitle("Proposed capacity additions")+
+  ylab("Capacity (MW)\n")
+ggsave('Dropbox (Princeton)/Figures/proposed_renew_cap.png', width=9, height=6)
 
 ggplot(not_cancelled, aes(x=nameplate_cap, color=renew, fill=renew)) + 
   geom_histogram() +
@@ -79,7 +83,9 @@ ggplot(not_cancelled, aes(x=nameplate_cap, color=renew, fill=renew)) +
   facet_wrap(~period, nrow= 3) + 
   xlab('Nameplate Capacity (MW)') + 
   ggtitle('Size of proposed capacity additions') + 
-  theme(plot.title=element_text(hjust=0.5))
+  theme(plot.title=element_text(hjust=0.5),
+        legend.position="bottom")
+ggsave('Dropbox (Princeton)/Figures/proposed_renew_size.png')
 
 num_util <- not_cancelled %>% group_by(year) %>% 
   summarise(nutil = length(unique(utility_name)))

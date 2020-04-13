@@ -71,6 +71,10 @@ ggplot(tot_renews, aes(x = year, y = tot_cap,
   ggtitle("U.S. Renewable Energy Capacity (MW)") + 
   scale_x_continuous(breaks = seq(min(tot_renews$year), max(tot_renews$year), by = 4)) +
   theme_update(text = element_text(size=16)) + 
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
   theme(legend.position = "bottom",
         legend.title=element_blank(),
         panel.grid = element_blank(),
@@ -277,6 +281,10 @@ ggplot(renew_cap_region,
   ylab("Capacity (MW) \n") +
   ggtitle("Renewable Energy Capacity by Region") +
   scale_x_continuous(breaks = seq(min(tot_renews$year), max(tot_renews$year), by = 3)) + 
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
   theme(legend.position = "bottom",
         legend.title=element_blank(),
         panel.grid = element_blank(),
@@ -316,6 +324,10 @@ pRenew_region %>%  mutate(label = if_else(year == max(year), as.character(region
 
   ylab("% Renewable\n") +
   ggtitle("% Renewable Capacity by Region") +
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
   scale_x_continuous(breaks = seq(min(tot_renews$year), max(tot_renews$year), by = 3)) + 
   theme(plot.title = element_text(hjust = 0.5),
         plot.margin = unit(c(1,3,1,1), "lines"),
@@ -332,6 +344,10 @@ temp <- temp %>% group_by(region, year,`Fuel Source`) %>% summarise(tot_cap = su
 ggplot(temp, aes(x=year, y=tot_cap,fill=region,color=region)) +
   geom_area(position='stack',alpha=0.6) +
   xlab("\nYear") + ylab("Capacity (MW)") + 
+  geom_vline(xintercept=2012,linetype="dotted") +
+  geom_vline(xintercept=2009,linetype="dotted") +
+  geom_vline(xintercept=2006,linetype="dotted") +
+  geom_vline(xintercept=2016,linetype="dotted") +
   facet_wrap(~`Fuel Source`,scale='free',ncol=4) + 
   theme(legend.position="bottom",
         legend.title = element_blank())

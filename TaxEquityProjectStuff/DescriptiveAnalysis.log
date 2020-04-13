@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 APR 2020 12:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 APR 2020 13:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -179,96 +179,141 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: ../../Figures/tot_renew_cap.png Graphic file (type png)
 <use ../../Figures/tot_renew_cap.png>
 Package pdftex.def Info: ../../Figures/tot_renew_cap.png  used on input line 13
-0.
+1.
 (pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
  [2]
-<../../Figures/tot_renew_by_region.png, id=17, 3011.25pt x 2107.875pt>
-File: ../../Figures/tot_renew_by_region.png Graphic file (type png)
-<use ../../Figures/tot_renew_by_region.png>
-Package pdftex.def Info: ../../Figures/tot_renew_by_region.png  used on input l
-ine 132.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-<../../Figures/p_renew_regions.png, id=18, 3011.25pt x 2107.875pt>
-File: ../../Figures/p_renew_regions.png Graphic file (type png)
-<use ../../Figures/p_renew_regions.png>
-Package pdftex.def Info: ../../Figures/p_renew_regions.png  used on input line 
-133.
-(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
- [3 <../../Figures/tot_renew_cap.png>]
-<../../Figures/renew_comp_regions.png, id=23, 2107.875pt x 3011.25pt>
-File: ../../Figures/renew_comp_regions.png Graphic file (type png)
-<use ../../Figures/renew_comp_regions.png>
-Package pdftex.def Info: ../../Figures/renew_comp_regions.png  used on input li
-ne 137.
-(pdftex.def)             Requested size: 462.52977pt x 660.73103pt.
- [4 <../../Figures/tot_renew_by_region.png> <../../Figures/p_renew_regions.png>
-] [5 <../../Figures/renew_comp_regions.png>]
-<../../Figures/tot_renew_by_region_tech.png, id=33, 3011.25pt x 2107.875pt>
-File: ../../Figures/tot_renew_by_region_tech.png Graphic file (type png)
-<use ../../Figures/tot_renew_by_region_tech.png>
-Package pdftex.def Info: ../../Figures/tot_renew_by_region_tech.png  used on in
-put line 140.
-(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
- [6 <../../Figures/tot_renew_by_region_tech.png>]
-<../../Figures/relative_growth_renew_tot.png, id=38, 3011.25pt x 2107.875pt>
-File: ../../Figures/relative_growth_renew_tot.png Graphic file (type png)
-<use ../../Figures/relative_growth_renew_tot.png>
-Package pdftex.def Info: ../../Figures/relative_growth_renew_tot.png  used on i
-nput line 144.
-(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+<../../Figures/region_renew_cap.png, id=17, 308.15125pt x 227.85126pt>
+File: ../../Figures/region_renew_cap.png Graphic file (type png)
+<use ../../Figures/region_renew_cap.png>
+Package pdftex.def Info: ../../Figures/region_renew_cap.png  used on input line
+ 142.
+(pdftex.def)             Requested size: 231.26047pt x 170.99927pt.
+<../../Figures/region_prenew.png, id=18, 305.14pt x 239.89626pt>
+File: ../../Figures/region_prenew.png Graphic file (type png)
+<use ../../Figures/region_prenew.png>
+Package pdftex.def Info: ../../Figures/region_prenew.png  used on input line 14
+3.
+(pdftex.def)             Requested size: 231.26047pt x 181.82155pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--146
+Underfull \hbox (badness 10000) in paragraph at lines 142--144
 
  []
 
-<../../Figures/growth_rates.png, id=39, 3011.25pt x 2107.875pt>
+<../../Figures/ferc-markets.png, id=19, 443.6575pt x 263.98625pt>
+File: ../../Figures/ferc-markets.png Graphic file (type png)
+<use ../../Figures/ferc-markets.png>
+Package pdftex.def Info: ../../Figures/ferc-markets.png  used on input line 148
+.
+(pdftex.def)             Requested size: 578.16002pt x 344.04005pt.
+<../../Figures/tot_renew_by_region.png, id=20, 3011.25pt x 2107.875pt>
+File: ../../Figures/tot_renew_by_region.png Graphic file (type png)
+<use ../../Figures/tot_renew_by_region.png>
+Package pdftex.def Info: ../../Figures/tot_renew_by_region.png  used on input l
+ine 151.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+<../../Figures/p_renew_regions.png, id=21, 3011.25pt x 2107.875pt>
+File: ../../Figures/p_renew_regions.png Graphic file (type png)
+<use ../../Figures/p_renew_regions.png>
+Package pdftex.def Info: ../../Figures/p_renew_regions.png  used on input line 
+152.
+(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+[3 <../../Figures/tot_renew_cap.png> <../../Figures/region_renew_cap.png> <../.
+./Figures/region_prenew.png>]
+<../../Figures/renew_comp_regions.png, id=28, 2107.875pt x 3011.25pt>
+File: ../../Figures/renew_comp_regions.png Graphic file (type png)
+<use ../../Figures/renew_comp_regions.png>
+Package pdftex.def Info: ../../Figures/renew_comp_regions.png  used on input li
+ne 156.
+(pdftex.def)             Requested size: 462.52977pt x 660.73103pt.
+ [4 <../../Figures/ferc-markets.png (PNG copy)> <../../Figures/tot_renew_by_reg
+ion.png>] [5 <../../Figures/p_renew_regions.png>]
+[6 <../../Figures/renew_comp_regions.png>]
+<../../Figures/tot_renew_by_region_tech.png, id=41, 3011.25pt x 2107.875pt>
+File: ../../Figures/tot_renew_by_region_tech.png Graphic file (type png)
+<use ../../Figures/tot_renew_by_region_tech.png>
+Package pdftex.def Info: ../../Figures/tot_renew_by_region_tech.png  used on in
+put line 159.
+(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+ [7 <../../Figures/tot_renew_by_region_tech.png>]
+<../../Figures/relative_growth_renew_tot.png, id=47, 3011.25pt x 2107.875pt>
+File: ../../Figures/relative_growth_renew_tot.png Graphic file (type png)
+<use ../../Figures/relative_growth_renew_tot.png>
+Package pdftex.def Info: ../../Figures/relative_growth_renew_tot.png  used on i
+nput line 163.
+(pdftex.def)             Requested size: 520.34048pt x 364.21994pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--165
+
+ []
+
+<../../Figures/growth_rates.png, id=48, 3011.25pt x 2107.875pt>
 File: ../../Figures/growth_rates.png Graphic file (type png)
 <use ../../Figures/growth_rates.png>
-Package pdftex.def Info: ../../Figures/growth_rates.png  used on input line 155
+Package pdftex.def Info: ../../Figures/growth_rates.png  used on input line 174
 .
 (pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-<../../Figures/yearly_changes.png, id=40, 3011.25pt x 2107.875pt>
+<../../Figures/yearly_changes.png, id=49, 3011.25pt x 2107.875pt>
 File: ../../Figures/yearly_changes.png Graphic file (type png)
 <use ../../Figures/yearly_changes.png>
 Package pdftex.def Info: ../../Figures/yearly_changes.png  used on input line 1
-56.
+75.
 (pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-[7 <../../Figures/relative_growth_renew_tot.png>] [8 <../../Figures/growth_rate
+[8 <../../Figures/relative_growth_renew_tot.png>] [9 <../../Figures/growth_rate
 s.png> <../../Figures/yearly_changes.png>]
-<../../Figures/after_2005_stock.png, id=51, 3011.25pt x 2107.875pt>
+<../../Figures/after_2005_stock.png, id=59, 3011.25pt x 2107.875pt>
 File: ../../Figures/after_2005_stock.png Graphic file (type png)
 <use ../../Figures/after_2005_stock.png>
 Package pdftex.def Info: ../../Figures/after_2005_stock.png  used on input line
- 161.
+ 180.
 (pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-<../../Figures/after_2005_additions.png, id=52, 3011.25pt x 2107.875pt>
+<../../Figures/after_2005_additions.png, id=60, 3011.25pt x 2107.875pt>
 File: ../../Figures/after_2005_additions.png Graphic file (type png)
 <use ../../Figures/after_2005_additions.png>
 Package pdftex.def Info: ../../Figures/after_2005_additions.png  used on input 
-line 162.
+line 181.
 (pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
- [9 <../../Figures/after_2005_stock.png> <../../Figures/after_2005_additions.pn
-g>] (./DescriptiveAnalysis.aux) ) 
+ [10 <../../Figures/after_2005_stock.png> <../../Figures/after_2005_additions.p
+ng>] [11]
+<../../Figures/num_proposed_gen.png, id=69, 2710.125pt x 1806.75pt>
+File: ../../Figures/num_proposed_gen.png Graphic file (type png)
+<use ../../Figures/num_proposed_gen.png>
+Package pdftex.def Info: ../../Figures/num_proposed_gen.png  used on input line
+ 195.
+(pdftex.def)             Requested size: 491.43954pt x 327.62701pt.
+<../../Figures/proposed_renew_cap.png, id=70, 2710.125pt x 1806.75pt>
+File: ../../Figures/proposed_renew_cap.png Graphic file (type png)
+<use ../../Figures/proposed_renew_cap.png>
+Package pdftex.def Info: ../../Figures/proposed_renew_cap.png  used on input li
+ne 196.
+(pdftex.def)             Requested size: 491.43954pt x 327.62701pt.
+<../../Figures/proposed_renew_size.png, id=71, 2216.28pt x 2579.6375pt>
+File: ../../Figures/proposed_renew_size.png Graphic file (type png)
+<use ../../Figures/proposed_renew_size.png>
+Package pdftex.def Info: ../../Figures/proposed_renew_size.png  used on input l
+ine 197.
+(pdftex.def)             Requested size: 491.43954pt x 572.00928pt.
+ [12 <../../Figures/num_proposed_gen.png> <../../Figures/proposed_renew_cap.png
+>] [13 <../../Figures/proposed_renew_size.png>] (./DescriptiveAnalysis.aux) ) 
 Here is how much of TeX's memory you used:
- 2237 strings out of 480608
- 32220 string characters out of 5903631
+ 2274 strings out of 480608
+ 33477 string characters out of 5903631
  272128 words of memory out of 5000000
- 18125 multiletter control sequences out of 15000+600000
- 538836 words of font info for 48 fonts, out of 8000000 for 9000
+ 18156 multiletter control sequences out of 15000+600000
+ 539143 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,6n,34p,265b,229s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/enc/
-dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
-cm-super/sfrm1095.pfb>
-Output written on DescriptiveAnalysis.pdf (9 pages, 3295406 bytes).
+{/
+usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</u
+sr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr
+/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
+al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
+/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on DescriptiveAnalysis.pdf (13 pages, 4064895 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 104 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
