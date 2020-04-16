@@ -3,6 +3,10 @@ library(tidyverse)
 library(dplyr)
 library(gridExtra)
 library(purrr)
+library(anytime)
+library(scales)
+library(lubridate)
+library(zoo)
 
 ########## IMPORT CLEAN PROPOSED GEN LIST
 
@@ -10,6 +14,8 @@ proposed_gen <- read.csv(file = "~/Dropbox (Princeton)/Tax Equity Code/Clean Dat
 
 ########## Fix variable types
 proposed_gen$nameplate_cap <- as.numeric(proposed_gen$nameplate_cap)
+proposed_gen$curr_complete_date <-as.Date(anydate(paste0(proposed_gen$curr_scheduled_year, "-",
+                                                  proposed_gen$curr_sceheduled_month)), format="%Y-%m-%d")
 
 ########## Add a 'period' variable to simplify the analysis
 proposed_gen$period <- 1
@@ -25,13 +31,11 @@ status_labels <- c("Cancelled", "Permits Pending",
 
 ########## Need to figure out which are duplicates
 
-## missing current schedule year only for < 2008
+## missing current schedule year only for < 2008, so drop them from dataset
 proposed_gen %>% filter(is.na(proposed_gen$curr_scheduled_year)) %>% group_by(year) %>% tally()
-
-
-
 proposed_gen %>% group_by(year) %>% tally()
-pRenew
+proposed_gen<- proposed_gen %>% filter(year > 2008)
+
 
 ########## ID Renewables in the list
 ########## Note: There are different ways to classify "renewables"
@@ -100,8 +104,6 @@ ggplot(num_util, aes(x=year, y=nutil)) + geom_line()
 ggplot(proposed_gen, aes(x=year)) + 
   geom_bar()
 
-
-
 ggplot(proposed_gen, aes(x=status,fill=renew,color=renew)) +
   geom_bar() +
   facet_wrap(~period,nrow=3) + 
@@ -125,3 +127,48 @@ ggplot(proposed_gen, aes(x=status, fill=prime_mover, color=prime_mover)) +
 #                           labels=pm_labels)
 
 
+## Analyze scheduled construction dates by renewable vs not  
+format_quarters <- function(x) {
+    x <- as.yearqtr(x)
+    year <- as.integer(x)
+    quart <- as.integer(format(x, "%q"))
+    
+    paste(c("Q1","Q2","Q3","Q4")[quart], 
+          year)
+  }
+  
+  calc_num_quarters <- function(dates) {
+    as.yearqtr(max(dates))- as.yearqtr(min(dates))
+  }
+  
+proposed_gen$scheduled_quarter <- as.yearqtr(proposed_gen$curr_complete_date)
+  
+ggplot(proposed_gen, aes(x=scheduled_quarter,col=renew,
+                         fill=renew)) + 
+    geom_bar(position='stack') +
+    scale_x_continuous(name="\nScheduled Completion Date") +
+    ylab("# Generators") +
+  scale_fill_discrete(labels=c("Non-renewable","Renewable")) + 
+  scale_color_discrete(labels=c("Non-renewable","Renewable")) + 
+  theme(legend.position="bottom",
+        legend.title= element_blank())
+
+ggsave('Dropbox (Princeton)/Figures/competion_date.png')
+  
+  ggplot(proposed_gen, aes(x=curr_complete_date,
+                           fill=I('blue'),
+                           col=I("black"),
+                           alpha=0.8)) + 
+    geom_histogram(bins=calc_num_quarters(proposed_gen$curr_complete_date),
+                   boundary = 0.5) +
+    geom_vline(xintercept = as.Date("2016-11-17"), 
+               linetype='dotted') + 
+    scale_x_date("Year and quarter when things were counted",
+                 # breaks = date_breaks("3 months"),
+                 labels = format_quarters) +
+    theme(axis.text.x = element_text(angle=90))
+  
+  hist(proposed_gen$curr_complete_date, breaks='quarters',
+       # xlab = deparse(substitute(proposed_gen$curr_complete_date)),
+       plot = TRUE, freq = FALSE,
+       start.on.monday = TRUE, format)
