@@ -5,6 +5,7 @@ library(gridExtra)
 library(ggpubr)
 library(grid)
 library(directlabels)
+library(usmap)
 
 ##############################################
 ## Import Annual Capacity Data by State

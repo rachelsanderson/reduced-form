@@ -8,6 +8,8 @@ library(scales)
 library(lubridate)
 library(zoo)
 library(ggpubr)
+library(usmap)
+library(xtable)
 
 # Housekeeping ------------------------------------------------------------
 
@@ -54,6 +56,10 @@ unique_gen <- unique_gen %>% filter(status != "IP") %>%
 weirdSources <- c("", "tires", "steam", "other")
 unique_gen <- unique_gen %>% filter(!(primary_source %in% weirdSources)) %>%
   filter(curr_scheduled_year<=2025)
+
+# make separate df for wind_solar
+wind_solar <- unique_gen %>% filter(primary_source %in% c("wind", "solar"))
+wind_solar <- filter(wind_solar, region!="") # fix these, they belong to LA
 
 # Summary statistics ------------------------------------------------------
 
@@ -131,7 +137,6 @@ ggplot(unique_gen,
 ggsave(file=paste0(figDir,'complete_dates_tot_cap.png'), width = 10, height=7)
 
 # look at wind and solar
-wind_solar <- unique_gen %>% filter(primary_source %in% c("wind", "solar"))
 
 ggplot(wind_solar, 
        aes(x=curr_scheduled_year,y=nameplate_cap,fill=primary_source)) + 
@@ -163,8 +168,6 @@ ggsave(file=paste0(figDir,'wind_solar_ngen.png'), width = 10, height=7)
 
 
 # Analyzing year-completion year  -----------------------------------------
-
-
   
 ggplot(wind_solar, aes(x=curr_scheduled_year,fill=primary_source)) +
    geom_histogram() + 
@@ -174,9 +177,53 @@ ggplot(wind_solar, aes(x=curr_scheduled_year,fill=primary_source)) +
         axis.text.x = element_text(angle = 90),
         legend.title=element_blank())
 ggsave(file=paste0(figDir,'year_to_year.png'), width=10, height=7)
+
+
+# Where are the projects located? -----------------------------------------
+
+
+table_2 <- wind_solar %>% group_by(primary_source, region) %>%
+  summarise(tot_cap = sum(nameplate_cap)) %>%
+  ungroup() %>% group_by(primary_source) %>%
+  mutate(percent = round(tot_cap/sum(tot_cap),2)) %>% 
+  arrange(primary_source, desc(percent)) 
+
+tab2a.df<-table_2 %>% filter(primary_source == 'solar') %>% ungroup() %>%
+  select(-primary_source)
+
+tab2a <- xtable(tab2a.df,  booktabs = TRUE, auto=TRUE,
+  include.rownames = FALSE)
+write(capture.output(tab2a), file=paste0(figDir,'tab2a.tex'))
+
+
+
+t <- wind_solar %>% group_by(primary_source, plant_state) %>%
+  summarise(n_gen = n(),
+            tot_cap = sum(nameplate_cap)) 
+
+t1<- t %>% filter(primary_source == 'solar') %>% ungroup() %>%
+  mutate(state = plant_state) %>%
+  select(state,tot_cap) %>%
+  filter(state != "")
+
+t2 <- t %>% filter(primary_source == 'solar') %>% ungroup() %>%
+  mutate(state = plant_state) %>%
+  select(state,n_gen) %>%
+  filter(state != "")
+
+plot_usmap(regions=c('states'), data=t1, values='tot_cap') 
+plot_usmap(regions=c('states'), data=t2, values='n_gen') 
+t3 <- t %>% filter(primary_source == 'wind') %>% ungroup() %>%
+  mutate(state = plant_state) %>%
+  select(state,tot_cap) %>%
+  filter(state != "")
+
+plot_usmap(regions=c('states'), data=t3, values='tot_cap') 
+# add regions
+
+
 # Where are projects located? 
 ## need year year plot
-
 
 ggplot(unique_gen, 
        aes(y = time_to_complete, x=curr_scheduled_year,fill=primary_source, color=primary_source)) + 
