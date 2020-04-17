@@ -9,13 +9,17 @@ library(lubridate)
 library(zoo)
 library(ggpubr)
 
-################################################
-### Set local filenames here
-################################################
+# Housekeeping ------------------------------------------------------------
 
+theme_set(
+  theme_classic(base_size = 12)
+)
+
+# Set local filenames 
 proposed_gen_csv = "~/Dropbox (Princeton)/Tax Equity Code/Clean Data/proposed_gen_master_list_post08.csv"
+figDir = "~/Dropbox (Princeton)/Figures/ProposedGenFigs/"
 
-########## IMPORT CLEAN PROPOSED GEN LIST
+# Import data
 
 proposed_gen <- read.csv(file = proposed_gen_csv)
 
@@ -45,41 +49,134 @@ unique_gen <- proposed_gen %>% group_by(unique_id) %>% filter(year == first(year
 unique_gen <- unique_gen %>% filter(status != "IP") %>%
   mutate(time_to_complete = curr_scheduled_year - year)
 
+# remove weird energy sources
+
+weirdSources <- c("", "tires", "steam", "other")
+unique_gen <- unique_gen %>% filter(!(primary_source %in% weirdSources)) %>%
+  filter(curr_scheduled_year<=2025)
+
+# Summary statistics ------------------------------------------------------
+
 # Let's make some summary statistics
 ts1 <- unique_gen %>% group_by(primary_source,year) %>% 
   summarise(n_gen = n(),
             tot_cap = sum(nameplate_cap),
             avg_build_yrs = mean(time_to_complete),
             avg_cap = mean(nameplate_cap))
+View(ts1)
+## TODO: Make this into a table
 
-ggplot(ts1 %>% filter(primary_source %in% c('wind','solar')), 
-       aes(y=avg_cap,x=year, color=primary_source)) +
-  geom_line()
-# remove weird primary sources
-# steam has only 63 MW; "" has 1573; other has 4.7l, tires has 3.8k
 
-weirdSources <- c("", "tires", "steam", "other")
-unique_gen <- unique_gen %>% filter(!(primary_source %in% weirdSources)) %>%
-    filter(curr_scheduled_year<=2025)
 
-nGen <- ggplot(unique_gen, 
-       aes(x=curr_scheduled_year,fill=primary_source, color=primary_source)) + 
-  ggtitle("Proposed additions by primary source type") + 
-  geom_bar(alpha=0.8) +
-  theme(legend.position = "none",
+# total capacity by proposed year of EIA data 
+ggplot(ts1,
+       aes(x=year, y=tot_cap, fill=primary_source)) +
+  geom_bar(stat='identity',position='stack') + 
+  xlab("\nYear*") +
+  ylab("Total Proposed Capacity (MW)\n") +
+  ggtitle("Capacity of proposed generators by technology") +
+  labs(caption = "*Year indicates first year that generator appears in EIA data") +
+  theme_bw() + 
+  theme(legend.position="bottom",
+        legend.title = element_blank(),
+        plot.title = element_text(hjust=0.5),
+        plot.caption = element_text(hjust = 0, face = "italic")) 
+ggsave(file = paste0(figDir,'proposed_gen_tot_cap.png'), width = 10, height=7)
+
+# Number of projects by proposed year of EIA data 
+ggplot(ts1, aes(x=year, y=n_gen, fill=primary_source)) +
+  geom_bar(stat='identity',position='stack') +
+  xlab("\nYear*") +
+  ylab("Number of proposed projects\n") +
+  ggtitle("Number of proposed generators by technology") +
+  labs(caption = "*Year indicates first year that generator appears in EIA data") +
+  theme_bw() + 
+  theme(legend.position="bottom",
+        legend.title = element_blank(),
+        plot.title = element_text(hjust=0.5),
+        plot.caption = element_text(hjust = 0, face = "italic")) 
+ggsave(file = paste0(figDir,'proposed_gen_nGen.png'), width = 10, height=7)
+
+# Number, capacity of proposed projects (make into functions) -------------
+
+# Same analysis but using scheduled year 
+ggplot(unique_gen, 
+       aes(x=curr_scheduled_year,fill=primary_source)) + 
+  ggtitle("Number of proposed generators by technology") + 
+  geom_bar(position='stack') +
+  xlab("\nScheduled Completion Year*") +
+  ylab("Number of projects\n") + 
+  labs(caption = "*Indicates initial scheduled completion date") +
+  theme_bw() +
+  theme(legend.position = "bottom",
         legend.title=element_blank(),
-        plot.title = element_text(hjust = 0.5))
+        plot.title = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = "italic")) 
 
-nCap <- ggplot(unique_gen, 
-       aes(y = nameplate_cap, x=curr_scheduled_year,fill=primary_source, color=primary_source)) + 
-  ggtitle("Proposed additions by primary source type") + 
-  geom_bar(stat='identity') + 
-  theme(legend.position = 'bottom', 
+ggsave(file=paste0(figDir,'complete_dates_nGen.png'), width = 10, height=7)
+
+
+ggplot(unique_gen, 
+       aes(x=curr_scheduled_year,y=nameplate_cap,fill=primary_source)) + 
+  ggtitle("Total capacity of proposed generators by technology") + 
+  geom_bar(stat='identity',position='stack') +
+  xlab("\nScheduled Completion Year*") +
+  ylab("Capacity (MW)\n") + 
+  labs(caption = "*Indicates initial scheduled completion date") +
+  theme_bw() +
+  theme(legend.position = "bottom",
         legend.title=element_blank(),
-        plot.title = element_text(hjust = 0.5))
+        plot.title = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = "italic")) 
+ggsave(file=paste0(figDir,'complete_dates_tot_cap.png'), width = 10, height=7)
 
-ggarrange(nGen, nCap,
-          ncol = 1, nrow = 2) 
+# look at wind and solar
+wind_solar <- unique_gen %>% filter(primary_source %in% c("wind", "solar"))
+
+ggplot(wind_solar, 
+       aes(x=curr_scheduled_year,y=nameplate_cap,fill=primary_source)) + 
+  ggtitle("Total proposed capacity by completion year") + 
+  geom_bar(stat='identity',position='stack') +
+  xlab("\nScheduled Completion Year*") +
+  ylab("Capacity (MW)\n") + 
+  labs(caption = "*Indicates initial scheduled completion date") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.title=element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = "italic")) 
+ggsave(file=paste0(figDir,'wind_solar_cap.png'), width = 10, height=7)
+
+ggplot(wind_solar, 
+       aes(x=curr_scheduled_year,fill=primary_source)) + 
+  ggtitle("Number of proposed generators by technology") + 
+  geom_bar(position='stack') +
+  xlab("\nScheduled Completion Year*") +
+  ylab("Number of projects\n") + 
+  labs(caption = "*Indicates initial scheduled completion date") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.title=element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = "italic")) 
+ggsave(file=paste0(figDir,'wind_solar_ngen.png'), width = 10, height=7)
+
+
+# Analyzing year-completion year  -----------------------------------------
+
+
+  
+ggplot(wind_solar, aes(x=curr_scheduled_year,fill=primary_source)) +
+   geom_histogram() + 
+  facet_wrap(~year, scale='free') +
+  xlab("\n Scheduled completion year") + 
+  theme(legend.position="bottom",
+        axis.text.x = element_text(angle = 90),
+        legend.title=element_blank())
+ggsave(file=paste0(figDir,'year_to_year.png'), width=10, height=7)
+# Where are projects located? 
+## need year year plot
+
 
 ggplot(unique_gen, 
        aes(y = time_to_complete, x=curr_scheduled_year,fill=primary_source, color=primary_source)) + 
@@ -89,7 +186,32 @@ ggplot(unique_gen,
         legend.title=element_blank(),
         plot.title = element_text(hjust = 0.5))
 
+ggplot(unique_gen %>% filter(as.logical(renew)),
+       aes(x=year, 
+           color=primary_source,
+           fill=primary_source)) + 
+  geom_histogram()
+
+ggplot(unique_gen %>% filter(as.logical(renew)),
+       aes(x=curr_scheduled_year, y=nameplate_cap,
+           color=primary_source,
+           fill=primary_source)) + 
+  geom_bar(stat='identity')
+
+ggplot(unique_gen %>% filter(as.logical(renew)),
+       aes(x= nameplate_cap,fill=primary_source)) + 
+  geom_histogram()
+
 nCap
+
+ts <- unique_gen %>% filter(as.logical(renew) & primary_source != "bio") %>%
+group_by(year, primary_source) %>%
+  summarise(avg_cap = mean(nameplate_cap)) 
+ggplot(ts, aes(x=year,y=avg_cap, 
+               color=primary_source,
+               fill=primary_source)) +
+  geom_bar(stat='identity') +
+  facet_wrap(~primary_source)
 
 # more interesting is average capacity size
 
