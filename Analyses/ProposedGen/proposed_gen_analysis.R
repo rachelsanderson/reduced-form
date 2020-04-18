@@ -2,7 +2,6 @@ library(ggplot2)
 library(tidyverse)
 library(dplyr)
 library(gridExtra)
-library(purrr)
 library(anytime)
 library(scales)
 library(lubridate)
@@ -10,6 +9,7 @@ library(zoo)
 library(ggpubr)
 library(usmap)
 library(xtable)
+
 
 # Housekeeping ------------------------------------------------------------
 
@@ -181,22 +181,104 @@ ggsave(file=paste0(figDir,'year_to_year.png'), width=10, height=7)
 
 # Where are the projects located? -----------------------------------------
 
+make_summary_df <- function(df,group_var,source){
+  #do year by year
+  summ <- df %>% filter(primary_source == source) %>%
+  group_by(.dots=group_var) %>%
+    summarise(tot_cap = sum(nameplate_cap),
+              nUnits = n(),
+              completion_time = mean(time_to_complete),
+              nUtils = n_distinct(utility_name)) %>%
+    # percent step needs fixing ffor multiple group vars
+    mutate(percent = round(tot_cap/sum(tot_cap),2)) %>% 
+    arrange(desc(percent))
+  return(summ)
+}
 
-table_2 <- wind_solar %>% group_by(primary_source, region) %>%
-  summarise(tot_cap = sum(nameplate_cap)) %>%
-  ungroup() %>% group_by(primary_source) %>%
-  mutate(percent = round(tot_cap/sum(tot_cap),2)) %>% 
-  arrange(primary_source, desc(percent)) 
+make_table <- function(df, group, source){
+  
+  # name for saving latex output
+  tabName <- paste(deparse(substitute(df)),group,source, sep = "_")
+  
+  # make table df
+  t_df <- make_summary_df(df, group, source)
+  colnames(t_df)[1] <- group
+  
+  # add a totals row
+  total_row <- data.frame(group="Total",t(colSums(t_df[,-1])))
+  colnames(total_row)[1] <- group
+  
+  t_df <- t_df %>% bind_rows(total_row)
+  
+  # make the table with the xtable package
+  out_tab <- xtable(t_df,  booktabs = TRUE, auto=TRUE)
+  caption(out_tab) <- paste("Location of proposed", source, "projects, 2008-2018")
+  names(out_tab) <- c(group,
+                      'Capacity (MW)',
+                      '# Projects',
+                      'Avg. Build Time',
+                      'Number of Utilities',
+                      '% Capacity')
+  write(capture.output(print(out_tab,  
+                             include.rownames = FALSE,
+                             caption.placement = getOption("xtable.caption.placement", "top"))), 
+        file=paste0(figDir,paste0(tabName,'.tex')))
+  return(t_df)
+}
 
-tab2a.df<-table_2 %>% filter(primary_source == 'solar') %>% ungroup() %>%
-  select(-primary_source)
-
-tab2a <- xtable(tab2a.df,  booktabs = TRUE, auto=TRUE,
-  include.rownames = FALSE)
-write(capture.output(tab2a), file=paste0(figDir,'tab2a.tex'))
+region_tabs <- lapply(c('wind','solar'),FUN = function(x) make_table(wind_solar, 'region',x))
+regulated_tabs <- lapply(c('wind','solar'),FUN = function(x) make_table(wind_solar,'regulated',x))
 
 
+## Plot year by year differences in regulated vs. dergulated projects
+## where year = initial completion date
 
+tt <- make_summary_df(wind_solar,c('regulated','curr_scheduled_year'),'solar') %>%
+  arrange(regulated, curr_scheduled_year) 
+
+year_sums <- tt %>% group_by(curr_scheduled_year) %>% 
+  summarise(year_tot = sum(tot_cap),
+            year_nUnits = sum(nUnits)) 
+
+tt <- tt %>% right_join(year_sums, by='curr_scheduled_year') %>%
+  mutate(percent_units = nUnits/year_nUnits,
+         percent_tot = tot_cap/year_tot)
+
+ggplot(tt, aes(x=curr_scheduled_year,y=tot_cap,color=regulated,fill=regulated)) +
+  geom_bar(stat='identity', width=0.8, position = 'dodge') +
+  ylab('Total Capacity (MW)\n') + 
+  xlab('\n Scheduled completion year') + 
+  scale_x_continuous(breaks=seq(min(tt$curr_scheduled_year), max(tt$curr_scheduled_year), 1)) + 
+  theme(legend.position=c(0.8,0.8),
+        axis.text.x = element_text(angle = 90),
+        legend.title=element_blank())
+ggsave(paste0(figDir, 'ann_tot_cap_reg.png'),width=10,height=7)
+
+ggplot(tt, aes(x=curr_scheduled_year,y=nUnits,color=regulated,fill=regulated)) +
+  geom_bar(stat='identity', width=0.8, position = 'dodge') +
+  ylab('Number of units\n') + 
+  xlab('\n Scheduled completion year') + 
+  scale_x_continuous(breaks=seq(min(tt$curr_scheduled_year), max(tt$curr_scheduled_year), 1)) + 
+  theme(legend.position=c(0.8,0.8),
+        axis.text.x = element_text(angle = 90),
+        legend.title=element_blank())
+ggsave(paste0(figDir, 'ann_nUnits_reg.png'),width=10,height=7)
+
+ggplot(tt, aes(x=curr_scheduled_year,y=(tot_cap/nUnits),color=regulated,fill=regulated)) +
+  geom_bar(stat='identity', width=0.8, position = 'dodge') +
+  ylab('Average capacity (MW)\n') + 
+  xlab('\n Scheduled completion year') + 
+  scale_x_continuous(breaks=seq(min(tt$curr_scheduled_year), max(tt$curr_scheduled_year), 1)) + 
+  theme(legend.position='bottom',
+        axis.text.x = element_text(angle = 90),
+        legend.title=element_blank())
+ggsave(paste0(figDir, 'ann_avg_cap_reg.png'),width=10,height=7)
+
+
+# Anythign below here idk -------------------------------------------------
+
+
+## below here idk what it is1
 t <- wind_solar %>% group_by(primary_source, plant_state) %>%
   summarise(n_gen = n(),
             tot_cap = sum(nameplate_cap)) 
