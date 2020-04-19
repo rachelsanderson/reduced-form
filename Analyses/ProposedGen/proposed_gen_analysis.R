@@ -37,7 +37,7 @@ unique_id_vars = c("utility_name",
                    "plant_state",
                    "generator_id",
                    "prime_mover",
-                   "nameplate_cap")
+                   "nameplate_cap") 
 
 proposed_gen <- proposed_gen %>% group_by(.dots=unique_id_vars) %>% 
   mutate(nObs = n(), 
@@ -61,7 +61,8 @@ unique_gen <- unique_gen %>% filter(!(primary_source %in% weirdSources)) %>%
 wind_solar <- unique_gen %>% filter(primary_source %in% c("wind", "solar"))
 wind_solar <- filter(wind_solar, region!="") # fix these, they belong to LA
 
-# Summary statistics ------------------------------------------------------
+
+# Descriptive, summary statistics for all techs  ------------------------------------------------------
 
 # Let's make some summary statistics
 ts1 <- unique_gen %>% group_by(primary_source,year) %>% 
@@ -69,10 +70,6 @@ ts1 <- unique_gen %>% group_by(primary_source,year) %>%
             tot_cap = sum(nameplate_cap),
             avg_build_yrs = mean(time_to_complete),
             avg_cap = mean(nameplate_cap))
-View(ts1)
-## TODO: Make this into a table
-
-
 
 # total capacity by proposed year of EIA data 
 ggplot(ts1,
@@ -81,9 +78,11 @@ ggplot(ts1,
   xlab("\nYear*") +
   ylab("Total Proposed Capacity (MW)\n") +
   ggtitle("Capacity of proposed generators by technology") +
-  labs(caption = "*Year indicates first year that generator appears in EIA data") +
+  # labs(caption = "*Year indicates first year that generator appears in EIA data") +
   theme_bw() + 
-  theme(legend.position="bottom",
+  scale_x_continuous(breaks=seq(min(ts1$year),max(ts$year),1)) + 
+  theme(legend.position="none",
+        axis.text.x = element_text(angle=90),
         legend.title = element_blank(),
         plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
@@ -97,13 +96,14 @@ ggplot(ts1, aes(x=year, y=n_gen, fill=primary_source)) +
   ggtitle("Number of proposed generators by technology") +
   labs(caption = "*Year indicates first year that generator appears in EIA data") +
   theme_bw() + 
+  scale_x_continuous(breaks=seq(min(ts1$year),max(ts$year),1)) + 
   theme(legend.position="bottom",
+        axis.text.x = element_text(angle=90),
         legend.title = element_blank(),
         plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
-ggsave(file = paste0(figDir,'proposed_gen_nGen.png'), width = 10, height=7)
 
-# Number, capacity of proposed projects (make into functions) -------------
+ggsave(file = paste0(figDir,'proposed_gen_nGen.png'), width = 10, height=7)
 
 # Same analysis but using scheduled year 
 ggplot(unique_gen, 
@@ -112,15 +112,16 @@ ggplot(unique_gen,
   geom_bar(position='stack') +
   xlab("\nScheduled Completion Year*") +
   ylab("Number of projects\n") + 
-  labs(caption = "*Indicates initial scheduled completion date") +
+  # labs(caption = "*Indicates initial scheduled completion date") +
   theme_bw() +
-  theme(legend.position = "bottom",
-        legend.title=element_blank(),
-        plot.title = element_text(hjust = 0.5),
+  scale_x_continuous(breaks=seq(min(unique_gen$curr_scheduled_year),max(unique_gen$curr_scheduled_year),1)) + 
+  theme(legend.position="none",
+        axis.text.x = element_text(angle=90),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
 
 ggsave(file=paste0(figDir,'complete_dates_nGen.png'), width = 10, height=7)
-
 
 ggplot(unique_gen, 
        aes(x=curr_scheduled_year,y=nameplate_cap,fill=primary_source)) + 
@@ -130,9 +131,11 @@ ggplot(unique_gen,
   ylab("Capacity (MW)\n") + 
   labs(caption = "*Indicates initial scheduled completion date") +
   theme_bw() +
-  theme(legend.position = "bottom",
-        legend.title=element_blank(),
-        plot.title = element_text(hjust = 0.5),
+  scale_x_continuous(breaks=seq(min(unique_gen$curr_scheduled_year),max(unique_gen$curr_scheduled_year),1)) + 
+  theme(legend.position="bottom",
+        axis.text.x = element_text(angle=90),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
 ggsave(file=paste0(figDir,'complete_dates_tot_cap.png'), width = 10, height=7)
 
@@ -179,6 +182,21 @@ ggplot(wind_solar, aes(x=curr_scheduled_year,fill=primary_source)) +
 ggsave(file=paste0(figDir,'year_to_year.png'), width=10, height=7)
 
 
+
+# duplicate entry analysis ------------------------------------------------
+
+ws <- proposed_gen %>% filter(primary_source %in% c('wind','solar'),
+                              status != 'OT',
+                              status != 'IP')
+# do this for nonduplicate data
+ggplot(ws, aes(x=alt_status, fill=primary_source)) + geom_bar() +
+  facet_wrap(~year, scale='free_y') +
+  theme(legend.position='bottom',
+  axis.text.x = element_text(angle=90, hjust=1))
+
+## look at percent that become 'under construction' when rules 
+## change
+
 # Where are the projects located? -----------------------------------------
 
 make_summary_df <- function(df,group_var,source){
@@ -187,8 +205,9 @@ make_summary_df <- function(df,group_var,source){
   group_by(.dots=group_var) %>%
     summarise(tot_cap = sum(nameplate_cap),
               nUnits = n(),
-              completion_time = mean(time_to_complete),
-              nUtils = n_distinct(utility_name)) %>%
+              avg_cap = mean(nameplate_cap)) %>% 
+              # completion_time = mean(time_to_complete),
+              # nUtils = n_distinct(utility_name)) %>%
     # percent step needs fixing ffor multiple group vars
     mutate(percent = round(tot_cap/sum(tot_cap),2)) %>% 
     arrange(desc(percent))
@@ -207,17 +226,19 @@ make_table <- function(df, group, source){
   # add a totals row
   total_row <- data.frame(group="Total",t(colSums(t_df[,-1])))
   colnames(total_row)[1] <- group
+  total_row$avg_cap <- 0
   
   t_df <- t_df %>% bind_rows(total_row)
   
   # make the table with the xtable package
-  out_tab <- xtable(t_df,  booktabs = TRUE, auto=TRUE)
+  alignVec <- rep('c',ncol(t_df)+1)
+  alignVec[1] <- 'l' # left align first col
+  out_tab <- xtable(t_df, booktabs=TRUE,auto=TRUE,align=alignVec,digits=2)
   caption(out_tab) <- paste("Location of proposed", source, "projects, 2008-2018")
   names(out_tab) <- c(group,
                       'Capacity (MW)',
                       '# Projects',
-                      'Avg. Build Time',
-                      'Number of Utilities',
+                      'Avg. Size (MW)',
                       '% Capacity')
   write(capture.output(print(out_tab,  
                              include.rownames = FALSE,
@@ -233,47 +254,72 @@ regulated_tabs <- lapply(c('wind','solar'),FUN = function(x) make_table(wind_sol
 ## Plot year by year differences in regulated vs. dergulated projects
 ## where year = initial completion date
 
-tt <- make_summary_df(wind_solar,c('regulated','curr_scheduled_year'),'solar') %>%
-  arrange(regulated, curr_scheduled_year) 
+# plot by regulated vs not for diff technologies 
+make_plots <- function(df, technology){
+  tt <- make_summary_df(df,c('regulated','curr_scheduled_year'),technology) %>%
+    arrange(regulated, curr_scheduled_year) 
+  
+  year_sums <- tt %>% group_by(curr_scheduled_year) %>% 
+    summarise(year_tot = sum(tot_cap),
+              year_nUnits = sum(nUnits)) 
+  
+  tt <- tt %>% right_join(year_sums, by='curr_scheduled_year') %>%
+    mutate(percent_units = nUnits/year_nUnits,
+           percent_tot = tot_cap/year_tot)
+  
+  plot_projects(tt, technology)
+  return(tt)
+}
 
-year_sums <- tt %>% group_by(curr_scheduled_year) %>% 
-  summarise(year_tot = sum(tot_cap),
-            year_nUnits = sum(nUnits)) 
+plot_projects <- function(df, technology){
+  minYear = min(df$curr_scheduled_year)
+  maxYear = max(df$curr_scheduled_year)
+  
+  #tot cap
+  ggplot(df, aes(x=curr_scheduled_year,y=tot_cap,color=regulated,fill=regulated)) +
+    geom_bar(stat='identity', width=0.8, position = 'dodge') +
+    ylab('Total Capacity (MW)\n') + 
+    xlab('\n Scheduled completion year') + 
+    scale_x_continuous(breaks=seq(minYear, maxYear, 1)) + 
+    ggtitle(paste0('Total capacity of proposed projects ', technology))+
+    theme(legend.position=c(0.8,0.8),
+          axis.text.x = element_text(angle = 90),
+          legend.title=element_blank())
+  ggsave(paste0(figDir, paste0('ann_tot_cap_',technology),'.png'),width=10,height=7)
+  
+  #num units
+  ggplot(df, aes(x=curr_scheduled_year,y=nUnits,color=regulated,fill=regulated)) +
+    geom_bar(stat='identity', width=0.8, position = 'dodge') +
+    ylab('Number of units\n') + 
+    xlab('\n Scheduled completion year') + 
+    scale_x_continuous(breaks=seq(minYear, maxYear, 1)) + 
+    ggtitle(paste0('Total number of proposed projects ', technology))+
+    theme(legend.position=c(0.8,0.8),
+          axis.text.x = element_text(angle = 90),
+          legend.title=element_blank())
+  ggsave(paste0(figDir, paste0('ann_nUnits_',technology),'.png'),width=10,height=7)
+  
+  #avg project size by year 
+  ggplot(df, aes(x=curr_scheduled_year,y=avg_cap,color=regulated,fill=regulated)) +
+    geom_bar(stat='identity', width=0.8, position = 'dodge') +
+    ylab('Average capacity (MW)\n') + 
+    xlab('\n Scheduled completion year') + 
+    scale_x_continuous(breaks=seq(minYear, maxYear, 1)) + 
+    ggtitle(paste0('Average capacity of proposed projects ', technology))+
+    theme(legend.position='bottom',
+          axis.text.x = element_text(angle = 90),
+          legend.title=element_blank())
+  ggsave(paste0(figDir, paste0('ann_avg_cap_',technology),'.png'),width=10,height=7)
+}
 
-tt <- tt %>% right_join(year_sums, by='curr_scheduled_year') %>%
-  mutate(percent_units = nUnits/year_nUnits,
-         percent_tot = tot_cap/year_tot)
 
-ggplot(tt, aes(x=curr_scheduled_year,y=tot_cap,color=regulated,fill=regulated)) +
-  geom_bar(stat='identity', width=0.8, position = 'dodge') +
-  ylab('Total Capacity (MW)\n') + 
-  xlab('\n Scheduled completion year') + 
-  scale_x_continuous(breaks=seq(min(tt$curr_scheduled_year), max(tt$curr_scheduled_year), 1)) + 
-  theme(legend.position=c(0.8,0.8),
-        axis.text.x = element_text(angle = 90),
-        legend.title=element_blank())
-ggsave(paste0(figDir, 'ann_tot_cap_reg.png'),width=10,height=7)
 
-ggplot(tt, aes(x=curr_scheduled_year,y=nUnits,color=regulated,fill=regulated)) +
-  geom_bar(stat='identity', width=0.8, position = 'dodge') +
-  ylab('Number of units\n') + 
-  xlab('\n Scheduled completion year') + 
-  scale_x_continuous(breaks=seq(min(tt$curr_scheduled_year), max(tt$curr_scheduled_year), 1)) + 
-  theme(legend.position=c(0.8,0.8),
-        axis.text.x = element_text(angle = 90),
-        legend.title=element_blank())
-ggsave(paste0(figDir, 'ann_nUnits_reg.png'),width=10,height=7)
+df <- make_plots(wind_solar,'solar')
 
-ggplot(tt, aes(x=curr_scheduled_year,y=(tot_cap/nUnits),color=regulated,fill=regulated)) +
-  geom_bar(stat='identity', width=0.8, position = 'dodge') +
-  ylab('Average capacity (MW)\n') + 
-  xlab('\n Scheduled completion year') + 
-  scale_x_continuous(breaks=seq(min(tt$curr_scheduled_year), max(tt$curr_scheduled_year), 1)) + 
-  theme(legend.position='bottom',
-        axis.text.x = element_text(angle = 90),
-        legend.title=element_blank())
-ggsave(paste0(figDir, 'ann_avg_cap_reg.png'),width=10,height=7)
+make_plots(wind_solar,'wind')
 
+
+## make in loop for wind and solar 
 
 # Anythign below here idk -------------------------------------------------
 
