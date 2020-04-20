@@ -7,9 +7,7 @@ library(grid)
 library(directlabels)
 library(usmap)
 
-##############################################
-## Import Annual Capacity Data by State
-##############################################
+# Import annual capacity data by state ------------------------------------
 
 ## Read in annual state-level capacity data
 
@@ -35,6 +33,7 @@ renew_list <- c("Hydroelectric", "Other Biomass", "Wind", "Solar Thermal and Pho
 
 total_raw_cap <- total_raw_cap %>% mutate(renew = ifelse(`Fuel Source` %in% renew_list,1,0))
 
+raw_renewables_cap <- total_raw_cap %>% filter(renew == 1)
 ##############################################################################
 ## Plot total renewable capacity (stock, percent of total capacity) by year
 ##############################################################################
@@ -366,6 +365,31 @@ ggplot(temp, aes(x=year, y=tot_cap,fill=`Fuel Source`,color=`Fuel Source`)) +
 
 ggsave(file='~/Dropbox (Princeton)/Figures/renew_comp_regions.png',width=7,height=10)
 
+annotate_plot(
+ggplot(temp %>% filter(`Fuel Source` %in% 
+                         c('Solar Thermal and Photovoltaic')), 
+       aes(x=year, y=tot_cap,fill=region,color=region)) +
+  geom_area(position='stack',alpha=0.6) +
+  xlab("\nYear") + ylab("Capacity (MW)") + 
+  scale_x_continuous(breaks=seq(2005,2018,1)) + 
+  theme_bw() + 
+  theme(legend.position="none",
+        legend.title = element_blank(),
+        axis.text.x = element_text(angle=90))
+)
+ggsave(file=paste0(figDir,'cap_solar.png'),width=10, height=7)
+
+ggplot(temp %>% filter(`Fuel Source` %in% 
+                         c('Wind')), 
+       aes(x=year, y=tot_cap,fill=region,color=region)) +
+  geom_area(position='stack',alpha=0.6) +
+  xlab("\nYear") + ylab("Capacity (MW)") + 
+  scale_x_continuous(breaks=seq(2005,2018,1)) + 
+  theme_bw() + 
+  theme(legend.position="bottom",
+        legend.title = element_blank(),
+        axis.text.x = element_text(angle=90))
+ggsave(file=paste0(figDir,'cap_wind.png'),width=10, height=7)
 
 ##############################################
 ## Make regulated vs not regulated variable

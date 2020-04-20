@@ -1,5 +1,5 @@
-\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
-\usepackage[margin=0.25in,includefoot]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\documentclass[12pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=0.5in,includefoot]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
 %\geometry{landscape}                		% Activate for rotated page geometry
 %\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
@@ -8,6 +8,8 @@
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{setspace}
+
 %SetFonts
 
 %SetFonts
@@ -20,17 +22,55 @@
 \begin{document}
 \maketitle
 
-\section{What was the 2002 spike?}
+\section{Data description}
+\doublespacing
+The data are intended to constitute a complete inventory of electric generating units located at facilities
+with a minimum on-site nameplate capacity of one megawatt (MW). The data collected include:
+\begin{itemize}
+\item The location (state, county, balancing authority, latitude and longitude) of a power plant
+\item The ownership of generating units (including designations of joint ownership)
+\item The capacity and energy source used by each generating unit at the plant
+\item The status of the plant as of December 31 of the reporting year (e.g., operational, standby, or
+retired)
+\item For steam electric plants, individual boiler characteristics, cooling-water systems, and emission
+control systems in non-nuclear plants (see a description in sub section Power Plant
+Environmental Controls and Estimated Emissions)
+\end{itemize}
+In addition to collecting data on existing generating units, EIA also collects data on \textbf{proposed plants and
+plants under construction.} To be included, the plant must be scheduled for commercial operation
+within 10 years for coal and nuclear plants and within 5 years for all other types of plants.
+\\
+\hspace{10pt}
+\\
+The analysis below uses data on the proposed plants. Each observation consists of a single generating unit.  I use the first year that each generating unit appears in my data, and so ``scheduled completion year" refers to the initial scheduled completion date.  Later on, I will look at how frequently projects are delayed or cancelled, by linking the proposed generator data with the operating generator data. 
 
+\pagebreak
 \section{Credit eligibility by year}
-I requested to meet with a librarian to fill this in.  
+
+\begin{table}[h!]
+\caption{Solar ITC Elgibility}
+\vspace{10pt}
+\begin{tabular}{lp{5cm}p{7cm}}
+\toprule
+Loan grant eligible & Begin construction between 2009-2011 & In my data, determine by first year appearing and ``status"\\
+\midrule
+ITC Round 1 (2008-2016) & Placed in service by 12/31/2016 & In my data, scheduled completion year $\leq$ 2016 \\
+\midrule
+ITC Round 2 (2017-2023) & Credit rate determined by begin construction, but eligibility requires placed in service by 12/31/2023 & In my data, requires looking at initial proposed year and scheduled completion year \\
+\bottomrule
+\end{tabular} 
+\end{table}
+
+However, I will meet with a librarian to fill a table like this: 
+
+
 \begin{table}[h]
 \caption{Federal Tax Credit Eligibility}
-\begin{tabular}{cccp{3cm}ll}
+\begin{tabular}{p{4cm}p{1.5cm}cp{4cm}p{3.5cm}l}
 \toprule
-Legislation                                  & Legislation Date & Credit   & Eligible resources                                                  & Begin construction & Placed in service \\
+Legislation                                  & Date & Credit   & Eligible resources                                                  & Begin construction & Placed in service \\
 \midrule
-\multirow[c]{4}{\noindent \tiny{Emergency Economic Stabilization Act of 2008}} & 10/3/08          & 30\% ITC & Solar                                                               &                                & 1-Jan-17                      \\
+Emergency Economic  & 10/3/08          & 30\% ITC & Solar                                                               &                                & 1-Jan-17                      \\Stabilization Act of 2008
                                              &                  & 30\% ITC & Fuel cell, microturbine                                             &                                & 31-Dec-16                     \\
                                              &                  & 10\% ITC & Geothermal heat pump                                                &                                &                               \\
                                              &                  & 10\% ITC & ``Efficient" combined heat and power systems with 15-50 MW capacity &                                &                  \\
@@ -38,15 +78,20 @@ Legislation                                  & Legislation Date & Credit   & Eli
 \end{tabular}
 \end{table}
 
-My understanding so far:
-% insert table here 
+\section{Summary of Analysis}
+\singlespacing
+\begin{itemize}
+\item I examine the relationship between total capacity and number of projects by proposal and scheduled scheduled completion dates.
+\item Proposal date refers to the first year a unit appears in the data; it proxies for ``begin construction".
+\item Scheduled construction date proxies for intent to comply with placed-in-service deadlines.
+\item I look for different patterns across regulated and deregulated states. 
+\end{itemize}
 
 \newpage
-\section{Summary for all technologies}
 \begin{figure}[!hb]
-\caption{Size and Number of Projects by ``begin construction" year}
-\includegraphics[height=0.45\textheight]{../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png}\\
-\includegraphics[height=0.45\textheight]{../../Figures/ProposedGenFigs/proposed_gen_nGen.png}
+\caption{Size and Number of Projects by ``begin construction" year, all technologies}
+\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png}\\
+\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/proposed_gen_nGen.png}
 \end{figure}
 
 \begin{figure}[!hb]
@@ -56,7 +101,13 @@ My understanding so far:
 \end{figure}
 
 \begin{figure}[!hb]
-\caption{Close up on wind and solar} 
+\caption{Wind and solar projects by proposal date}
+\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/year1_ws_tot_cap.png}
+\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/year1_ws_nUnits.png}
+\end{figure}
+
+\begin{figure}[!hb]
+\caption{Wind and solar projects by scheduled completion date}
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/wind_solar_cap.png}
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/wind_solar_ngen.png}
 \end{figure}
@@ -64,10 +115,22 @@ My understanding so far:
 \vfill
 \clearpage
 
-\section{Wind and solar} 
+\section{Wind and Solar} 
+\begin{figure}[h!]
+\centering
+\caption{Capacity over time}
+\includegraphics[height=0.45\textheight]{../../Figures/ProposedGenFigs/cap_solar.png}
+\includegraphics[height=0.45\textheight]{../../Figures/ProposedGenFigs/cap_wind.png}
+\end{figure}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../../Figures/ProposedGenFigs/solar_hist.png}
+\end{center}
+
 \begin{figure}[!hb]
-\caption{Scheduled completion year by year proposed}
-\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/year_to_year.png}
+\centering
+\caption{Scheduled completion year by proposal period}
+\includegraphics[width=0.8\textwidth]{../../Figures/ProposedGenFigs/year_to_year.png}
 \end{figure}
 
 \input{../../Figures/ProposedGenFigs/wind_solar_region_solar.tex}

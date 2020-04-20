@@ -17,6 +17,7 @@ theme_set(
   theme_classic(base_size = 12)
 )
 
+
 # Set local filenames 
 proposed_gen_csv = "~/Dropbox (Princeton)/Tax Equity Code/Clean Data/proposed_gen_master_list_post08.csv"
 figDir = "~/Dropbox (Princeton)/Figures/ProposedGenFigs/"
@@ -61,10 +62,41 @@ unique_gen <- unique_gen %>% filter(!(primary_source %in% weirdSources)) %>%
 wind_solar <- unique_gen %>% filter(primary_source %in% c("wind", "solar"))
 wind_solar <- filter(wind_solar, region!="") # fix these, they belong to LA
 
+# Function for annotating graphs ------------------------------------------
 
-# Descriptive, summary statistics for all techs  ------------------------------------------------------
+annotate_plot <- function(plt){
+   plt <- plt + 
+    # add the shaded parts
+    
+    # Loan grant eligible 
+    geom_vline(xintercept=2011.5,linetype="dotted") +
+    annotate("rect", xmin=2007.5, xmax=2011.5, ymin= -Inf, 
+             ymax=Inf, alpha=0.1, 
+             fill='blue') +
+    # ITC round 1
+    geom_vline(xintercept=2016.5,linetype="dotted") +
+    annotate("rect", xmin=2011.5, xmax=2016.5, ymin= -Inf, 
+             ymax=Inf, alpha=0.2, 
+             fill='yellow') +
+    # ITC round 2
+    geom_vline(xintercept=2016.5,linetype="dotted") +
+    annotate("rect", xmin=2016.5, xmax=Inf, ymin= -Inf, 
+             ymax=Inf, alpha=0.2, 
+             fill='red') +
+    
+    # add the text
+    annotate('text', label='Loan grant + ITC', x=2009.5, y=Inf, 
+             vjust = 1.5) +
+    annotate('text', label='ITC Round 1', x=2014, y=Inf, 
+             vjust = 1.5) +
+    annotate('text', label='ITC Round 2', x=Inf, y=Inf, 
+             vjust = 1.5, hjust=1.05) 
+    return(plt)
+}
 
-# Let's make some summary statistics
+
+# All projects by proposal/completion date  ------------------------------------------------------
+
 ts1 <- unique_gen %>% group_by(primary_source,year) %>% 
   summarise(n_gen = n(),
             tot_cap = sum(nameplate_cap),
@@ -72,7 +104,7 @@ ts1 <- unique_gen %>% group_by(primary_source,year) %>%
             avg_cap = mean(nameplate_cap))
 
 # total capacity by proposed year of EIA data 
-ggplot(ts1,
+plt1 <- ggplot(ts1,
        aes(x=year, y=tot_cap, fill=primary_source)) +
   geom_bar(stat='identity',position='stack') + 
   xlab("\nYear*") +
@@ -86,10 +118,12 @@ ggplot(ts1,
         legend.title = element_blank(),
         plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
+annotate_plot(plt1)
 ggsave(file = paste0(figDir,'proposed_gen_tot_cap.png'), width = 10, height=7)
 
 # Number of projects by proposed year of EIA data 
-ggplot(ts1, aes(x=year, y=n_gen, fill=primary_source)) +
+annotate_plot(
+  ggplot(ts1, aes(x=year, y=n_gen, fill=primary_source)) +
   geom_bar(stat='identity',position='stack') +
   xlab("\nYear*") +
   ylab("Number of proposed projects\n") +
@@ -102,10 +136,12 @@ ggplot(ts1, aes(x=year, y=n_gen, fill=primary_source)) +
         legend.title = element_blank(),
         plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
+)
 
 ggsave(file = paste0(figDir,'proposed_gen_nGen.png'), width = 10, height=7)
 
 # Same analysis but using scheduled year 
+annotate_plot(
 ggplot(unique_gen, 
        aes(x=curr_scheduled_year,fill=primary_source)) + 
   ggtitle("Number of proposed generators by technology") + 
@@ -120,9 +156,10 @@ ggplot(unique_gen,
         legend.title = element_blank(),
         plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
-
+)
 ggsave(file=paste0(figDir,'complete_dates_nGen.png'), width = 10, height=7)
 
+annotate_plot(
 ggplot(unique_gen, 
        aes(x=curr_scheduled_year,y=nameplate_cap,fill=primary_source)) + 
   ggtitle("Total capacity of proposed generators by technology") + 
@@ -137,10 +174,49 @@ ggplot(unique_gen,
         legend.title = element_blank(),
         plot.title = element_text(hjust=0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
+)
 ggsave(file=paste0(figDir,'complete_dates_tot_cap.png'), width = 10, height=7)
 
-# look at wind and solar
 
+# Wind and solar projects by date -----------------------------------------
+
+annotate_plot(
+ggplot(wind_solar, 
+       aes(x=year,y=nameplate_cap,fill=primary_source)) + 
+  ggtitle("Total proposed capacity by initial proposed year") + 
+  geom_bar(stat='identity',position='stack') +
+  xlab("\nYear*") +
+  ylab("Capacity (MW)\n") + 
+  scale_x_continuous(breaks=seq(2008,2018,1)) + 
+  # labs(caption = "*Indicates initial scheduled completion date") +
+  theme_bw() +
+  theme(legend.position = c(0.1,0.8),
+        legend.title=element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = "italic"),
+        axis.text.x = element_text(angle=90)) 
+)
+ggsave(file=paste0(figDir,'year1_ws_tot_cap.png'),width = 10, height=7)
+
+annotate_plot(
+  ggplot(wind_solar, 
+         aes(x=year,fill=primary_source)) + 
+    ggtitle("Number of projects by initial proposed year") + 
+    geom_bar(position='stack') +
+    xlab("\nYear*") +
+    ylab("Capacity (MW)\n") + 
+    labs(caption = "*Indicates proposed year") +
+    scale_x_continuous(breaks=seq(2008,2018,1)) + 
+    theme_bw() +
+    theme(legend.position = c(0.1,0.8),
+          legend.title=element_blank(),
+          plot.title = element_text(hjust = 0.5),
+          plot.caption = element_text(hjust = 0, face = "italic"),
+          axis.text.x = element_text(angle=90)) 
+)
+ggsave(file=paste0(figDir,'year1_ws_nUnits.png'),width = 10, height=7)
+
+annotate_plot(
 ggplot(wind_solar, 
        aes(x=curr_scheduled_year,y=nameplate_cap,fill=primary_source)) + 
   ggtitle("Total proposed capacity by completion year") + 
@@ -153,8 +229,10 @@ ggplot(wind_solar,
         legend.title=element_blank(),
         plot.title = element_text(hjust = 0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
+)
 ggsave(file=paste0(figDir,'wind_solar_cap.png'), width = 10, height=7)
 
+annotate_plot(
 ggplot(wind_solar, 
        aes(x=curr_scheduled_year,fill=primary_source)) + 
   ggtitle("Number of proposed generators by technology") + 
@@ -167,20 +245,31 @@ ggplot(wind_solar,
         legend.title=element_blank(),
         plot.title = element_text(hjust = 0.5),
         plot.caption = element_text(hjust = 0, face = "italic")) 
+)
 ggsave(file=paste0(figDir,'wind_solar_ngen.png'), width = 10, height=7)
 
 
+ggplot(wind_solar %>% filter(primary_source=='solar'),aes(x=nameplate_cap,fill=period)) +
+  geom_histogram() +
+  ggtitle('Solar project size by proposal period') +
+  facet_wrap(~period, nrow=3, scale='free_y') +
+  theme_bw() + 
+  xlab('Nameplate Capacity (MW)') +
+  theme(legend.position="none",
+        plot.title=element_text(hjust=0.5))
+ggsave(file=paste0(figDir,'solar_hist.png'),width=7,height=10)
+
 # Analyzing year-completion year  -----------------------------------------
-  
+
 ggplot(wind_solar, aes(x=curr_scheduled_year,fill=primary_source)) +
-   geom_histogram() + 
-  facet_wrap(~year, scale='free') +
+   geom_bar() + 
+  facet_wrap(~period, scale='free', nrow=3) +
+  scale_x_continuous(breaks=seq(2008,2025,1)) +
   xlab("\n Scheduled completion year") + 
   theme(legend.position="bottom",
         axis.text.x = element_text(angle = 90),
         legend.title=element_blank())
-ggsave(file=paste0(figDir,'year_to_year.png'), width=10, height=7)
-
+ggsave(file=paste0(figDir,'year_to_year.png'), width=7, height=10)
 
 
 # duplicate entry analysis ------------------------------------------------
@@ -276,39 +365,48 @@ plot_projects <- function(df, technology){
   maxYear = max(df$curr_scheduled_year)
   
   #tot cap
+  annotate_plot(
   ggplot(df, aes(x=curr_scheduled_year,y=tot_cap,color=regulated,fill=regulated)) +
     geom_bar(stat='identity', width=0.8, position = 'dodge') +
     ylab('Total Capacity (MW)\n') + 
     xlab('\n Scheduled completion year') + 
     scale_x_continuous(breaks=seq(minYear, maxYear, 1)) + 
     ggtitle(paste0('Total capacity of proposed projects ', technology))+
+    theme_bw() + 
     theme(legend.position=c(0.8,0.8),
           axis.text.x = element_text(angle = 90),
           legend.title=element_blank())
+  )
   ggsave(paste0(figDir, paste0('ann_tot_cap_',technology),'.png'),width=10,height=7)
   
   #num units
+  annotate_plot(
   ggplot(df, aes(x=curr_scheduled_year,y=nUnits,color=regulated,fill=regulated)) +
     geom_bar(stat='identity', width=0.8, position = 'dodge') +
     ylab('Number of units\n') + 
     xlab('\n Scheduled completion year') + 
     scale_x_continuous(breaks=seq(minYear, maxYear, 1)) + 
     ggtitle(paste0('Total number of proposed projects ', technology))+
+    theme_bw() + 
     theme(legend.position=c(0.8,0.8),
           axis.text.x = element_text(angle = 90),
           legend.title=element_blank())
+  )
   ggsave(paste0(figDir, paste0('ann_nUnits_',technology),'.png'),width=10,height=7)
   
   #avg project size by year 
+  annotate_plot(
   ggplot(df, aes(x=curr_scheduled_year,y=avg_cap,color=regulated,fill=regulated)) +
     geom_bar(stat='identity', width=0.8, position = 'dodge') +
     ylab('Average capacity (MW)\n') + 
     xlab('\n Scheduled completion year') + 
     scale_x_continuous(breaks=seq(minYear, maxYear, 1)) + 
     ggtitle(paste0('Average capacity of proposed projects ', technology))+
+    theme_bw() +
     theme(legend.position='bottom',
           axis.text.x = element_text(angle = 90),
           legend.title=element_blank())
+  )
   ggsave(paste0(figDir, paste0('ann_avg_cap_',technology),'.png'),width=10,height=7)
 }
 
