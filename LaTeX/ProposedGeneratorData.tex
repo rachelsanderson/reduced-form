@@ -6,6 +6,8 @@
 \usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
 								% TeX will automatically convert eps --> pdf in pdflatex		
 \usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
 %SetFonts
 
 %SetFonts
@@ -18,39 +20,55 @@
 \begin{document}
 \maketitle
 
-\section{what was the 2002 spike?}
+\section{What was the 2002 spike?}
 
-\section{Solar eligibility by year}
-Table for begin construction, placed in service... 
+\section{Credit eligibility by year}
+I requested to meet with a librarian to fill this in.  
+\begin{table}[h]
+\caption{Federal Tax Credit Eligibility}
+\begin{tabular}{cccp{3cm}ll}
+\toprule
+Legislation                                  & Legislation Date & Credit   & Eligible resources                                                  & Begin construction & Placed in service \\
+\midrule
+\multirow[c]{4}{\noindent \tiny{Emergency Economic Stabilization Act of 2008}} & 10/3/08          & 30\% ITC & Solar                                                               &                                & 1-Jan-17                      \\
+                                             &                  & 30\% ITC & Fuel cell, microturbine                                             &                                & 31-Dec-16                     \\
+                                             &                  & 10\% ITC & Geothermal heat pump                                                &                                &                               \\
+                                             &                  & 10\% ITC & ``Efficient" combined heat and power systems with 15-50 MW capacity &                                &                  \\
+                                             \bottomrule            
+\end{tabular}
+\end{table}
 
+My understanding so far:
+% insert table here 
+
+\newpage
 \section{Summary for all technologies}
-\begin{figure}
+\begin{figure}[!hb]
 \caption{Size and Number of Projects by ``begin construction" year}
-\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png}
-\includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/proposed_gen_nGen.png}
+\includegraphics[height=0.45\textheight]{../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png}\\
+\includegraphics[height=0.45\textheight]{../../Figures/ProposedGenFigs/proposed_gen_nGen.png}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!hb]
 \caption{Size and Number of Projects by initial scheduled completion date}
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/complete_dates_nGen.png}
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/complete_dates_tot_cap.png}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!hb]
 \caption{Close up on wind and solar} 
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/wind_solar_cap.png}
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/wind_solar_ngen.png}
 \end{figure}
 
+\vfill
+\clearpage
 
-
-\section{Wind and solar}
-
-\begin{figure}
+\section{Wind and solar} 
+\begin{figure}[!hb]
 \caption{Scheduled completion year by year proposed}
 \includegraphics[height=0.5\textheight]{../../Figures/ProposedGenFigs/year_to_year.png}
 \end{figure}
-
 
 \input{../../Figures/ProposedGenFigs/wind_solar_region_solar.tex}
 

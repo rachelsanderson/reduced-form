@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  19 APR 2020 19:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  20 APR 2020 09:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -82,28 +82,55 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen145
+\lightrulewidth=\dimen146
+\cmidrulewidth=\dimen147
+\belowrulesep=\dimen148
+\belowbottomsep=\dimen149
+\aboverulesep=\dimen150
+\abovetopsep=\dimen151
+\cmidrulesep=\dimen152
+\cmidrulekern=\dimen153
+\defaultaddspace=\dimen154
+\@cmidla=\count178
+\@cmidlb=\count179
+\@aboverulesep=\dimen155
+\@belowrulesep=\dimen156
+\@thisruleclass=\count180
+\@lastruleclass=\count181
+\@thisrulewidth=\dimen157
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
+\multirow@colwidth=\skip49
+\multirow@cntb=\count182
+\multirow@dima=\skip50
+\bigstrutjot=\dimen158
+)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count178
+\l__kernel_color_stack_int=\count183
 \l__pdf_internal_box=\box45
 )
 (./ProposedGeneratorData.aux)
 \openout1 = `ProposedGeneratorData.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -141,16 +168,16 @@ LaTeX Font Info:    ... okay on input line 18.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count179
-\scratchdimen=\dimen145
+\scratchcounter=\count184
+\scratchdimen=\dimen159
 \scratchbox=\box46
-\nofMPsegments=\count180
-\nofMParguments=\count181
+\nofMPsegments=\count185
+\nofMParguments=\count186
 \everyMPshowfont=\toks18
-\MPscratchCnt=\count182
-\MPscratchDim=\dimen146
-\MPnumerator=\count183
-\makeMPintoPDFobject=\count184
+\MPscratchCnt=\count187
+\MPscratchDim=\dimen160
+\MPnumerator=\count188
+\makeMPintoPDFobject=\count189
 \everyMPtoPDFconversion=\toks19
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -161,211 +188,289 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png, id=1, 3011.25pt x 2107
-.875pt>
-File: ../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png Graphic file (type
- png)
-<use ../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png
-  used on input line 29.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-<../../Figures/ProposedGenFigs/proposed_gen_nGen.png, id=3, 3011.25pt x 2107.87
-5pt>
-File: ../../Figures/ProposedGenFigs/proposed_gen_nGen.png Graphic file (type pn
-g)
-<use ../../Figures/ProposedGenFigs/proposed_gen_nGen.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/proposed_gen_nGen.png  u
-sed on input line 30.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
+./ProposedGeneratorData.tex:33: Missing number, treated as zero.
+<to be read again> 
+                   \noindent 
+l.33 ...ncy Economic Stabilization Act of 2008}} &
+                                                   10/3/08          & 30\% I...
 
-Underfull \hbox (badness 10000) in paragraph at lines 29--31
-[][]
+? s
+OK, entering \scrollmode...
+./ProposedGeneratorData.tex:33: Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \noindent 
+l.33 ...ncy Economic Stabilization Act of 2008}} &
+                                                   10/3/08          & 30\% I...
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+
+Overfull \hbox (35.21623pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 Emergency
  []
 
 
-LaTeX Warning: Float too large for page by 21.7333pt on input line 31.
-
-<../../Figures/ProposedGenFigs/complete_dates_nGen.png, id=4, 3011.25pt x 2107.
-875pt>
-File: ../../Figures/ProposedGenFigs/complete_dates_nGen.png Graphic file (type 
-png)
-<use ../../Figures/ProposedGenFigs/complete_dates_nGen.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/complete_dates_nGen.png 
- used on input line 35.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-<../../Figures/ProposedGenFigs/complete_dates_tot_cap.png, id=5, 3011.25pt x 21
-07.875pt>
-File: ../../Figures/ProposedGenFigs/complete_dates_tot_cap.png Graphic file (ty
-pe png)
-<use ../../Figures/ProposedGenFigs/complete_dates_tot_cap.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/complete_dates_tot_cap.p
-ng  used on input line 36.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 35--37
-[][]
+Overfull \hbox (14.35535pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 Eco-
  []
 
 
-LaTeX Warning: Float too large for page by 21.7333pt on input line 37.
-
-<../../Figures/ProposedGenFigs/wind_solar_cap.png, id=6, 3011.25pt x 2107.875pt
->
-File: ../../Figures/ProposedGenFigs/wind_solar_cap.png Graphic file (type png)
-<use ../../Figures/ProposedGenFigs/wind_solar_cap.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/wind_solar_cap.png  used
- on input line 41.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-<../../Figures/ProposedGenFigs/wind_solar_ngen.png, id=7, 3011.25pt x 2107.875p
-t>
-File: ../../Figures/ProposedGenFigs/wind_solar_ngen.png Graphic file (type png)
-
-<use ../../Figures/ProposedGenFigs/wind_solar_ngen.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/wind_solar_ngen.png  use
-d on input line 42.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--43
-[][]
+Overfull \hbox (19.11087pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 nomic
  []
 
 
-LaTeX Warning: Float too large for page by 21.7333pt on input line 43.
-
-File: ../../Figures/ProposedGenFigs/wind_solar_ngen.png Graphic file (type png)
-
-<use ../../Figures/ProposedGenFigs/wind_solar_ngen.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/wind_solar_ngen.png  use
-d on input line 51.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-File: ../../Figures/ProposedGenFigs/wind_solar_cap.png Graphic file (type png)
-<use ../../Figures/ProposedGenFigs/wind_solar_cap.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/wind_solar_cap.png  used
- on input line 52.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--53
-[][]
+Overfull \hbox (13.11093pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 Sta-
  []
 
 
-LaTeX Warning: Float too large for page by 21.7333pt on input line 53.
-
-<../../Figures/ProposedGenFigs/year_to_year.png, id=8, 3011.25pt x 2107.875pt>
-File: ../../Figures/ProposedGenFigs/year_to_year.png Graphic file (type png)
-<use ../../Figures/ProposedGenFigs/year_to_year.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/year_to_year.png  used o
-n input line 57.
-(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
-(../../Figures/ProposedGenFigs/wind_solar_region_solar.tex)
-(../../Figures/ProposedGenFigs/wind_solar_region_wind.tex)
-(../../Figures/ProposedGenFigs/wind_solar_regulated_solar.tex)
-(../../Figures/ProposedGenFigs/wind_solar_regulated_wind.tex)
-<../../Figures/ProposedGenFigs/ann_tot_cap_solar.png, id=9, 3011.25pt x 2107.87
-5pt>
-File: ../../Figures/ProposedGenFigs/ann_tot_cap_solar.png Graphic file (type pn
-g)
-<use ../../Figures/ProposedGenFigs/ann_tot_cap_solar.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_tot_cap_solar.png  u
-sed on input line 70.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-<../../Figures/ProposedGenFigs/ann_tot_cap_wind.png, id=10, 3011.25pt x 2107.87
-5pt>
-File: ../../Figures/ProposedGenFigs/ann_tot_cap_wind.png Graphic file (type png
-)
-<use ../../Figures/ProposedGenFigs/ann_tot_cap_wind.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_tot_cap_wind.png  us
-ed on input line 71.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 70--72
-[][]
+Overfull \hbox (8.66655pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 bi-
  []
 
-<../../Figures/ProposedGenFigs/ann_avg_cap_solar.png, id=11, 3011.25pt x 2107.8
-75pt>
-File: ../../Figures/ProposedGenFigs/ann_avg_cap_solar.png Graphic file (type pn
-g)
-<use ../../Figures/ProposedGenFigs/ann_avg_cap_solar.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_avg_cap_solar.png  u
-sed on input line 75.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-<../../Figures/ProposedGenFigs/ann_avg_cap_wind.png, id=12, 3011.25pt x 2107.87
-5pt>
-File: ../../Figures/ProposedGenFigs/ann_avg_cap_wind.png Graphic file (type png
-)
-<use ../../Figures/ProposedGenFigs/ann_avg_cap_wind.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_avg_cap_wind.png  us
-ed on input line 76.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
-[][]
+Overfull \hbox (13.66647pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 liza-
  []
 
-<../../Figures/ProposedGenFigs/ann_nUnits_solar.png, id=13, 3011.25pt x 2107.87
-5pt>
-File: ../../Figures/ProposedGenFigs/ann_nUnits_solar.png Graphic file (type png
-)
-<use ../../Figures/ProposedGenFigs/ann_nUnits_solar.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_nUnits_solar.png  us
-ed on input line 80.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
-<../../Figures/ProposedGenFigs/ann_nUnits_wind.png, id=14, 3011.25pt x 2107.875
-pt>
-File: ../../Figures/ProposedGenFigs/ann_nUnits_wind.png Graphic file (type png)
 
-<use ../../Figures/ProposedGenFigs/ann_nUnits_wind.png>
-Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_nUnits_wind.png  use
-d on input line 81.
-(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+Overfull \hbox (12.72206pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 tion
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--82
-[][]
+
+Overfull \hbox (11.54431pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 Act
+ []
+
+
+Overfull \hbox (5.97214pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 of
+ []
+
+
+Overfull \hbox (14.66644pt too wide) in paragraph at lines 33--33
+\OT1/cmr/m/n/6 2008 
+ []
+
+
+Overfull \vbox (21.80006pt too high) detected at line 33
+ []
+
+
+Underfull \hbox (badness 1990) in paragraph at lines 35--35
+[]\OT1/cmr/m/n/10.95 Geothermal heat
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--36
+[]\OT1/cmr/m/n/10.95 ``Efficient" com-
+ []
+
+
+Underfull \hbox (badness 5133) in paragraph at lines 36--36
+\OT1/cmr/m/n/10.95 bined heat and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--36
+\OT1/cmr/m/n/10.95 power sys-tems
+ []
+
+
+Underfull \hbox (badness 2005) in paragraph at lines 36--36
+\OT1/cmr/m/n/10.95 with 15-50 MW
  []
 
 [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png, id=11, 3011.25pt x 210
+7.875pt>
+File: ../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png Graphic file (type
+ png)
+<use ../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png
+  used on input line 48.
+(pdftex.def)             Requested size: 468.5309pt x 327.97353pt.
+<../../Figures/ProposedGenFigs/proposed_gen_nGen.png, id=13, 3011.25pt x 2107.8
+75pt>
+File: ../../Figures/ProposedGenFigs/proposed_gen_nGen.png Graphic file (type pn
+g)
+<use ../../Figures/ProposedGenFigs/proposed_gen_nGen.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/proposed_gen_nGen.png  u
+sed on input line 49.
+(pdftex.def)             Requested size: 468.5309pt x 327.97353pt.
+<../../Figures/ProposedGenFigs/complete_dates_nGen.png, id=14, 3011.25pt x 2107
+.875pt>
+File: ../../Figures/ProposedGenFigs/complete_dates_nGen.png Graphic file (type 
+png)
+<use ../../Figures/ProposedGenFigs/complete_dates_nGen.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/complete_dates_nGen.png 
+ used on input line 54.
+(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
+<../../Figures/ProposedGenFigs/complete_dates_tot_cap.png, id=15, 3011.25pt x 2
+107.875pt>
+File: ../../Figures/ProposedGenFigs/complete_dates_tot_cap.png Graphic file (ty
+pe png)
+<use ../../Figures/ProposedGenFigs/complete_dates_tot_cap.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/complete_dates_tot_cap.p
+ng  used on input line 55.
+(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--56
+[][]
+ []
+
+
+LaTeX Warning: Float too large for page by 21.7333pt on input line 56.
+
+<../../Figures/ProposedGenFigs/wind_solar_cap.png, id=16, 3011.25pt x 2107.875p
+t>
+File: ../../Figures/ProposedGenFigs/wind_solar_cap.png Graphic file (type png)
+<use ../../Figures/ProposedGenFigs/wind_solar_cap.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/wind_solar_cap.png  used
+ on input line 60.
+(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
+<../../Figures/ProposedGenFigs/wind_solar_ngen.png, id=17, 3011.25pt x 2107.875
+pt>
+File: ../../Figures/ProposedGenFigs/wind_solar_ngen.png Graphic file (type png)
+
+<use ../../Figures/ProposedGenFigs/wind_solar_ngen.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/wind_solar_ngen.png  use
+d on input line 61.
+(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--62
+[][]
+ []
+
+
+LaTeX Warning: Float too large for page by 21.7333pt on input line 62.
+
 [2 <../../Figures/ProposedGenFigs/proposed_gen_tot_cap.png> <../../Figures/Prop
 osedGenFigs/proposed_gen_nGen.png>] [3 <../../Figures/ProposedGenFigs/complete_
 dates_nGen.png> <../../Figures/ProposedGenFigs/complete_dates_tot_cap.png>]
 [4 <../../Figures/ProposedGenFigs/wind_solar_cap.png> <../../Figures/ProposedGe
-nFigs/wind_solar_ngen.png>] [5] [6] [7 <../../Figures/ProposedGenFigs/year_to_y
-ear.png>] [8 <../../Figures/ProposedGenFigs/ann_tot_cap_solar.png> <../../Figur
-es/ProposedGenFigs/ann_tot_cap_wind.png>] [9 <../../Figures/ProposedGenFigs/ann
-_avg_cap_solar.png> <../../Figures/ProposedGenFigs/ann_avg_cap_wind.png>]
-[10 <../../Figures/ProposedGenFigs/ann_nUnits_solar.png> <../../Figures/Propose
-dGenFigs/ann_nUnits_wind.png>] (./ProposedGeneratorData.aux) ) 
+nFigs/wind_solar_ngen.png>]
+<../../Figures/ProposedGenFigs/year_to_year.png, id=33, 3011.25pt x 2107.875pt>
+
+File: ../../Figures/ProposedGenFigs/year_to_year.png Graphic file (type png)
+<use ../../Figures/ProposedGenFigs/year_to_year.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/year_to_year.png  used o
+n input line 70.
+(pdftex.def)             Requested size: 520.58989pt x 364.4175pt.
+
+(../../Figures/ProposedGenFigs/wind_solar_region_solar.tex)
+(../../Figures/ProposedGenFigs/wind_solar_region_wind.tex)
+(../../Figures/ProposedGenFigs/wind_solar_regulated_solar.tex)
+(../../Figures/ProposedGenFigs/wind_solar_regulated_wind.tex)
+<../../Figures/ProposedGenFigs/ann_tot_cap_solar.png, id=34, 3011.25pt x 2107.8
+75pt>
+File: ../../Figures/ProposedGenFigs/ann_tot_cap_solar.png Graphic file (type pn
+g)
+<use ../../Figures/ProposedGenFigs/ann_tot_cap_solar.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_tot_cap_solar.png  u
+sed on input line 82.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+<../../Figures/ProposedGenFigs/ann_tot_cap_wind.png, id=35, 3011.25pt x 2107.87
+5pt>
+File: ../../Figures/ProposedGenFigs/ann_tot_cap_wind.png Graphic file (type png
+)
+<use ../../Figures/ProposedGenFigs/ann_tot_cap_wind.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_tot_cap_wind.png  us
+ed on input line 83.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+[][]
+ []
+
+<../../Figures/ProposedGenFigs/ann_avg_cap_solar.png, id=36, 3011.25pt x 2107.8
+75pt>
+File: ../../Figures/ProposedGenFigs/ann_avg_cap_solar.png Graphic file (type pn
+g)
+<use ../../Figures/ProposedGenFigs/ann_avg_cap_solar.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_avg_cap_solar.png  u
+sed on input line 87.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+<../../Figures/ProposedGenFigs/ann_avg_cap_wind.png, id=37, 3011.25pt x 2107.87
+5pt>
+File: ../../Figures/ProposedGenFigs/ann_avg_cap_wind.png Graphic file (type png
+)
+<use ../../Figures/ProposedGenFigs/ann_avg_cap_wind.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_avg_cap_wind.png  us
+ed on input line 88.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+[][]
+ []
+
+<../../Figures/ProposedGenFigs/ann_nUnits_solar.png, id=38, 3011.25pt x 2107.87
+5pt>
+File: ../../Figures/ProposedGenFigs/ann_nUnits_solar.png Graphic file (type png
+)
+<use ../../Figures/ProposedGenFigs/ann_nUnits_solar.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_nUnits_solar.png  us
+ed on input line 92.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+<../../Figures/ProposedGenFigs/ann_nUnits_wind.png, id=39, 3011.25pt x 2107.875
+pt>
+File: ../../Figures/ProposedGenFigs/ann_nUnits_wind.png Graphic file (type png)
+
+<use ../../Figures/ProposedGenFigs/ann_nUnits_wind.png>
+Package pdftex.def Info: ../../Figures/ProposedGenFigs/ann_nUnits_wind.png  use
+d on input line 93.
+(pdftex.def)             Requested size: 491.43954pt x 343.98907pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--94
+[][]
+ []
+
+[5
+
+ <../../Figures/ProposedGenFigs/year_to_year.png>] [6] [7 <../../Figures/Propos
+edGenFigs/ann_tot_cap_solar.png> <../../Figures/ProposedGenFigs/ann_tot_cap_win
+d.png>] [8 <../../Figures/ProposedGenFigs/ann_avg_cap_solar.png> <../../Figures
+/ProposedGenFigs/ann_avg_cap_wind.png>] [9 <../../Figures/ProposedGenFigs/ann_n
+Units_solar.png> <../../Figures/ProposedGenFigs/ann_nUnits_wind.png>]
+(./ProposedGeneratorData.aux) ) 
 Here is how much of TeX's memory you used:
- 2271 strings out of 480608
- 34688 string characters out of 5903631
- 278146 words of memory out of 5000000
- 18146 multiletter control sequences out of 15000+600000
+ 2383 strings out of 480608
+ 36317 string characters out of 5903631
+ 277715 words of memory out of 5000000
+ 18250 multiletter control sequences out of 15000+600000
  539435 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,7n,34p,267b,221s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texli
-ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texliv
-e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
-2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on ProposedGeneratorData.pdf (10 pages, 1914006 bytes).
+ 30i,11n,34p,288b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2020/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr6.pfb>
+Output written on ProposedGeneratorData.pdf (9 pages, 1926888 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
