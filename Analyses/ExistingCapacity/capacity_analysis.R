@@ -25,6 +25,10 @@ raw_cap_data$facilities <- as.numeric(raw_cap_data$Facilities)
 raw_cap_data$facilities[is.na(raw_cap_data$facilities)] <- 0
 raw_cap_data$state <- raw_cap_data$`State Code`
 
+write.csv(raw_cap_data, 
+          file = "~/Dropbox (Princeton)/Tax Equity Code/STATA/capacity_clean.csv",
+          col.names=TRUE)
+
 total_raw_cap <- raw_cap_data %>% filter(`Producer Type` == "Total Electric Power Industry")
 
 ## Define renewable resources
