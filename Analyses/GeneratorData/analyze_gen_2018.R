@@ -251,4 +251,31 @@ gen_data_merged %>% filter(technology == "Solar Photovoltaic",
   theme(legend.position = "none")
 
 
-# Make data for regressions  -----------------------------------------------------
+# Build dataset for regressions  -----------------------------------------------------
+
+#quarter 4 FE
+
+y1 <- solar %>% group_by(operating_quarter, plant_state) %>%
+  summarise(d_cap = sum(nameplate_cap))
+
+y2 <- solar %>% group_by(operating_quarter, region) %>%
+  summarise(d_cap = sum(nameplate_cap))
+
+y3 <- solar %>% group_by(operating_year, plant_state) %>%
+  summarise(d_cap=sum(nameplate_cap))
+
+y1_fe <- y1 %>% group_by(plant_state) %>%
+  mutate(state_demean = d_cap-mean(d_cap)) %>%
+  ungroup()%>% group_by(operating_quarter) %>%
+  mutate(state_time_demean = state_demean-mean(d_cap))
+
+y1_fe %>% ggplot(aes(x=operating_quarter, y = state_time_demean,color=plant_state)) + geom_line()
+
+y2 <- solar %>% group_by(operating_quarter, region) %>%
+  summarise(d_cap = sum(nameplate_cap))
+y2_fe <- y2 %>% group_by(region) %>%
+  mutate(state_demean = d_cap-mean(d_cap)) %>%
+  ungroup()%>% group_by(region) %>%
+  mutate(state_time_demean = state_demean-mean(d_cap))
+y2_fe %>% ggplot(aes(x=operating_quarter, y = state_demean,color=region)) + geom_line()
+
