@@ -18,9 +18,8 @@ figDir = "~/Dropbox (Princeton)/Figures/GenFigs/"
 
 # Set up data -------------------------------------------------------------
 
-gen_data_merged = read.csv(paste0(dataDir,'merged_new.csv'))
+gen_data_merged = read.csv(paste0(dataDir,'merged_clean_address.csv'))
 gen_data = read.csv(paste0(dataDir,'gen_2018.csv'))
-
 
 # gen_data$nameplate_cap <- as.numeric(gen_data$Nameplate.Capacity..MW.)
 # gen_data_merged$nameplate_cap <- as.numeric(gen_data_merged$nameplate_capacity_mw)
@@ -279,3 +278,44 @@ y2_fe <- y2 %>% group_by(region) %>%
   mutate(state_time_demean = state_demean-mean(d_cap))
 y2_fe %>% ggplot(aes(x=operating_quarter, y = state_demean,color=region)) + geom_line()
 
+
+
+# Look at top utilities by quarter ----------------------------------------
+
+topUtilities <- solar %>% group_by(parent_utility) %>%
+  summarise(cap = sum(nameplate_cap)) %>% arrange(desc(cap)) %>% 
+  select(parent_utility) %>% slice(1:20)
+
+solar %>% group_by(parent_utility, operating_quarter) %>%
+  summarise(cap = sum(nameplate_cap)) %>%
+  arrange(desc(cap)) %>%
+  filter(parent_utility %in% topUtilities$parent_utility) %>%
+  ggplot(aes(x=operating_quarter,y=cap,fill=parent_utility)) +
+  geom_bar(stat='identity') +
+  facet_wrap(~parent_utility) +
+  theme(legend.position = "none")
+
+
+solar %>% mutate(util = ifelse((parent_utility %in% topUtilities$parent_utility), "top 20", "other")) %>%
+  ggplot(aes(x=operating_quarter,y=nameplate_cap,fill=util)) +
+  geom_bar(stat='identity') +
+  theme(legend.position = "bottom") +
+  facet_wrap(~region, scales="free",nrow=2) +
+  xlab("\nStart Operation Date") +
+  ylab("Total Capacity (MW)\n") + 
+  geom_vline(xintercept=as.yearqtr("2016 Q4"), linetype='dotted') +
+  theme(axis.text.x = element_text(angle=90),
+        legend.position="bottom",
+        legend.title=element_blank())
+ggsave(paste0(figDir,"top_builders.png"),width=16,height=9)
+
+solar %>% group_by(region, parent_utility) %>% 
+  summarise(cap = sum(nameplate_cap)) %>%
+  arrange(region, desc(cap)) %>%
+  slice(1:10) %>%
+  View()
+
+
+solar %>% group_by(ownership) %>%
+  summarise(cap = sum(nameplate_cap)) %>% View()
+  
