@@ -1,0 +1,37 @@
+Summary Statistics					
+	(1)	(2)	(3)	(4)	(5)
+VARIABLES	N	mean	sd	min	max
+					
+year	4,349	2,014	2.860	2,009	2,018
+mw_generation	4,349	9.360e+06	2.170e+07	-1.491e+06	2.397e+08
+perc_gen	4,349	0.115	0.198	-0.0220	0.985
+total_gen	4,349	8.949e+07	8.041e+07	1.911e+06	4.774e+08
+nameplate_cap	4,349	2,677	6,135	0	78,849
+summer_cap	4,349	2,442	5,512	0	69,807
+num_facilities	4,349	17.67	34.80	1	557
+num_generators	4,349	0.0805	0.272	0	1
+tot_nameplate_cap	4,349	25,748	23,243	687.4	133,948
+tot_summer_cap	4,349	23,513	21,304	649.5	123,512
+tot_num_gen	4,349	0	0	0	0
+tot_num_facilities	4,349	142.4	125.5	0	938
+tot_cap_change	4,349	208.5	877.6	-2,975	5,886
+tot_cap_growth_rate	4,349	0.854	4.279	-79.92	13.77
+p_nameplate_cap	4,349	0.115	0.176	0	0.977
+p_summer_cap	4,349	0.115	0.175	0	0.976
+cap_change	4,346	8.648	607.6	-32,237	5,021
+cap_growth_rate	4,345	-6.997	376.9	-24,798	1
+residential_price	4,349	12.85	4.051	7.698	37.36
+perc_residential_rev	4,349	0.440	0.0559	0.216	0.585
+perc_commercial_rev	4,349	0.355	0.0617	0.243	0.539
+perc_industrial_rev	4,349	0.203	0.0849	0.0408	0.518
+funded	4,467	5.656e+07	2.915e+08	0	4.930e+09
+tot_funded	4,467	6.216e+08	1.215e+09	257,529	7.046e+09
+rps	4,462	0.763	0.425	0	1
+net_meter	4,462	0.678	0.467	0	1
+num_funded	4,467	236.8	344.5	2	1,550
+avg_1603_funding	4,467	5.168e+06	7.231e+06	42,922	3.693e+07
+gw_generation	4,349	9,360	21,702	-1,491	239,713
+state_code	4,467	27.23	15.31	1	54
+id	4,467	27.18	16.40	1	56
+_merge	4,467	3	0	3	3
+					

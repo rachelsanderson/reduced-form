@@ -1,0 +1,59 @@
+utility_subsidiaries = {
+  "Southern California Edison Co": "Edison International",
+
+  # southern power co
+  "Southern Power Co": "Southern Company",
+  "Mississippi Power Co": "Southern Company",
+  "Alabama Power Co": "Southern Company",
+  "Georgia Power Co": "Southern Company",
+
+  # con Ed
+  "Consolidated Edison Energy, Inc.": "Consolidated Edison",
+  "Consolidated Edison Co-NY Inc": "Consolidated Edison",
+  "Consolidated Edison Development Inc": "Consolidated Edison",
+  "Consolidated Edison Solutions Inc": "Consolidated Edison",
+
+  # dominion
+  "Dominion Energy South Carolina, Inc": "Dominion Energy",
+  "Dominion Renewable Energy": "Dominion Energy",
+  "Virginia Electric & Power Co": "Dominion Energy",
+  "Dominion Renewable Energy - Clipperton"  : "Dominion Energy",
+  "Dominion Renewable Energy - Fremont": "Dominion Energy",
+
+  # NextEra
+  "Florida Power & Light Co": "NextEra",
+  "Bythe Solar II, LLC": "NextEra",
+  "Blythe Solar 110": "NextEra",
+  "McCoy Solar, LLC": "NextEra",
+  "Silver State Solar Power South, LLC": "NextEra",
+  "Stuttgart Solar, LLC": "NextEra",
+  "Marshall Solar Energy Project": "NextEra",
+
+  # BHE
+  "BHER Power Resources, Inc": "Berkshire Hathaway",
+  "BHE Renewables, LLC": "Berkshire Hathaway",
+  "Topaz Solar Farms LLC": "Berkshire Hathaway",
+
+  # 8me
+  "Imperial Valley Solar, LLC": "8me",
+
+  # DE Shaw
+  "D E Shaw & Co., LP": "DE Shaw",
+  "North Star Solar PV LLC": "DE Shaw",
+  "MS Solar 2, LLC": "DE Shaw",
+
+  # Exelon
+  "AV Solar Ranch 1 LLC": "Exelon",
+
+  # Largest solar projects
+  "Phoebe Energy Project, LLC": "7X Energy",
+
+  "Misae Lessee LLC": "Copenhagen Infrastructure Partners",
+  "Buckthorn Westex, LLC": "Clearway",
+
+  "Techren Solar II LLC": "174 Power",
+
+  "Wright Solar Park LLC": "Centaurus Renewable Energy"
+
+
+}

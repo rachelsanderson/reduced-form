@@ -35,7 +35,10 @@ new_df <- df %>% filter(energy_source != "Total") %>%
 new_df <- new_df %>% 
   filter(type_of_producer == "Total Electric Power Industry") %>%
   ungroup() %>% select(-type_of_producer)
- 
+
+# fix this to match cap data
+new_df$energy_source <- gsub("Hydroelectric Conventional", "Hydroelectric", new_df$energy_source)
+
 outDir = "Dropbox (Princeton)/Tax Equity Code/Stata_Analysis/MakeStataData/InputData/"
 
 write_csv(new_df, paste0(outDir,"annual_generation_data.csv"))

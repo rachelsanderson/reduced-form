@@ -1,0 +1,29 @@
+	(1)
+VARIABLES	State + Time FE
+	
+2010.year	168.8
+	(123.5)
+2011.year	332.2*
+	(195.4)
+2012.year	465.9*
+	(260.2)
+2013.year	661.9*
+	(369.1)
+2014.year	819.0*
+	(456.9)
+2015.year	963.3*
+	(507.0)
+2016.year	1,213**
+	(584.7)
+2017.year	1,337**
+	(608.4)
+2018.year	1,447**
+	(637.5)
+Constant	-522.6
+	(448.3)
+	
+Observations	297
+Number of state_code	46
+R-squared	0.201
+Robust standard errors in parentheses	
+*** p<0.01, ** p<0.05, * p<0.1	
