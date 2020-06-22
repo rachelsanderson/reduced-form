@@ -7,14 +7,14 @@ library(grid)
 library(directlabels)
 library(usmap)
 
-# Import annual capacity data by state ------------------------------------
+# Clean annual capacity data  ------------------------------------
 
 ## Read in annual state-level capacity data
 
 raw_cap_data <- read.csv(file = "~/Dropbox (Princeton)/Data for Tax Equity Project/eia_capacity_data/existcapacity_annual.csv",
                          stringsAsFactors = FALSE, header=TRUE)
-colnames(raw_cap_data) <- raw_cap_data[1,]
-raw_cap_data <- raw_cap_data[-1,]
+# colnames(raw_cap_data) <- raw_cap_data[1,]
+# raw_cap_data <- raw_cap_data[-1,]
 
 ## Fix some of the variables 
 
@@ -28,6 +28,9 @@ raw_cap_data$state <- raw_cap_data$`State Code`
 write.csv(raw_cap_data, 
           file = "~/Dropbox (Princeton)/Tax Equity Code/STATA/capacity_clean.csv",
           col.names=TRUE)
+
+
+# Start here to import clean data -----------------------------------------
 
 total_raw_cap <- raw_cap_data %>% filter(`Producer Type` == "Total Electric Power Industry")
 
